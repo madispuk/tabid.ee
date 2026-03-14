@@ -17,13 +17,13 @@ layout: layout.liquid
 <div id="chord-strip" class="mb-4 hidden">
   <div class="flex items-center gap-2 mb-3">
     <div id="chord-mode-toggle" class="flex rounded-lg border border-ctp-surface0 overflow-hidden">
-      <button data-mode="frets" class="chord-mode-btn text-xs font-medium uppercase tracking-wider px-3 py-1 transition-colors bg-ctp-surface0 text-ctp-lavender">Vahed</button>
-      <button data-mode="fingers" class="chord-mode-btn text-xs font-medium uppercase tracking-wider px-3 py-1 transition-colors text-ctp-overlay0 hover:text-ctp-text">Sõrmed</button>
+      <button data-mode="frets" class="chord-mode-btn text-xs font-medium uppercase tracking-wider px-4 py-2 md:px-3 md:py-1 transition-colors bg-ctp-surface0 text-ctp-lavender">Vahed</button>
+      <button data-mode="fingers" class="chord-mode-btn text-xs font-medium uppercase tracking-wider px-4 py-2 md:px-3 md:py-1 transition-colors text-ctp-overlay0 hover:text-ctp-text">Sõrmed</button>
     </div>
     <div id="font-size-toggle" class="flex rounded-lg border border-ctp-surface0 overflow-hidden">
-      <button data-size="0" class="font-size-btn text-xs font-medium text-ctp-overlay1 hover:text-ctp-text px-2 py-1 transition-colors" title="Väike">S</button>
-      <button data-size="1" class="font-size-btn text-xs font-medium text-ctp-overlay1 hover:text-ctp-text px-2 py-1 border-x border-ctp-surface0 transition-colors" title="Keskmine">M</button>
-      <button data-size="2" class="font-size-btn text-xs font-medium text-ctp-overlay1 hover:text-ctp-text px-2 py-1 transition-colors" title="Suur">L</button>
+      <button data-size="0" class="font-size-btn text-xs font-medium text-ctp-overlay1 hover:text-ctp-text px-3 py-2 md:px-2 md:py-1 transition-colors" title="Väike">S</button>
+      <button data-size="1" class="font-size-btn text-xs font-medium text-ctp-overlay1 hover:text-ctp-text px-3 py-2 md:px-2 md:py-1 border-x border-ctp-surface0 transition-colors" title="Keskmine">M</button>
+      <button data-size="2" class="font-size-btn text-xs font-medium text-ctp-overlay1 hover:text-ctp-text px-3 py-2 md:px-2 md:py-1 transition-colors" title="Suur">L</button>
     </div>
   </div>
   <div id="chord-strip-items" class="flex gap-2 overflow-x-auto pb-2"></div>
@@ -33,7 +33,7 @@ layout: layout.liquid
   <div class="flex items-center px-4 py-2 border-b border-ctp-surface0 bg-ctp-crust/50">
     <span class="text-xs text-ctp-overlay0 font-medium uppercase tracking-wider">Sõnad & Akordid</span>
   </div>
-  <pre id="song-content" class="song-pre p-4 md:p-6 overflow-x-auto text-sm md:text-base font-mono leading-relaxed text-ctp-subtext1">{{ content }}</pre>
+  <pre id="song-content" class="song-pre p-4 md:p-6 overflow-x-auto text-sm md:text-sm font-mono leading-relaxed text-ctp-subtext1">{{ content }}</pre>
 </div>
 
 {% assign artistSongs = collections.songs | artistSongs: artist %}

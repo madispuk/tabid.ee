@@ -35,7 +35,8 @@ import { CHORD_DB } from "./chords";
 
   // ─── Font size toggle ───
   const fontBtns = document.querySelectorAll<HTMLButtonElement>(".font-size-btn");
-  const sizes = ["text-xs", "text-base", "text-xl"];
+  const mobileSizes = ["text-[10px]", "text-xs", "text-sm"];
+  const desktopSizes = ["md:text-xs", "md:text-sm", "md:text-base"];
   const chordSizes = [
     { width: 100, height: 133 },
     { width: 130, height: 179 },
@@ -44,9 +45,11 @@ import { CHORD_DB } from "./chords";
   let currentSize = parseInt(localStorage.getItem("songFontSize") ?? "1");
 
   function applySize() {
-    sizes.forEach((s) => pre.classList.remove(s));
-    pre.classList.add(sizes[currentSize]);
-    pre.classList.remove("md:text-base", "md:text-lg", "md:text-xl");
+    mobileSizes.forEach((s) => pre.classList.remove(s));
+    desktopSizes.forEach((s) => pre.classList.remove(s));
+    pre.classList.remove("text-sm", "md:text-sm");
+    pre.classList.add(mobileSizes[currentSize]);
+    pre.classList.add(desktopSizes[currentSize]);
     fontBtns.forEach((btn) => {
       const active = parseInt(btn.dataset.size!) === currentSize;
       btn.classList.toggle("bg-ctp-surface1", active);
@@ -245,9 +248,9 @@ import { CHORD_DB } from "./chords";
       chordDisplayMode = mode;
       document.querySelectorAll(".chord-mode-btn").forEach((b) => {
         if ((b as HTMLElement).dataset.mode === mode) {
-          b.className = "chord-mode-btn text-xs font-medium uppercase tracking-wider px-3 py-1 transition-colors bg-ctp-surface0 text-ctp-lavender";
+          b.className = "chord-mode-btn text-xs font-medium uppercase tracking-wider px-4 py-2 md:px-3 md:py-1 transition-colors bg-ctp-surface0 text-ctp-lavender";
         } else {
-          b.className = "chord-mode-btn text-xs font-medium uppercase tracking-wider px-3 py-1 transition-colors text-ctp-overlay0 hover:text-ctp-text";
+          b.className = "chord-mode-btn text-xs font-medium uppercase tracking-wider px-4 py-2 md:px-3 md:py-1 transition-colors text-ctp-overlay0 hover:text-ctp-text";
         }
       });
       updateChordStrip();

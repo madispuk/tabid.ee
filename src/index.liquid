@@ -18,7 +18,7 @@ metaDescription: "Eesti laulude akordid ja sõnad kitarrile. Leia oma lemmiklaul
       type="text"
       id="search"
       placeholder="Otsi laulu või artisti..."
-      class="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-ctp-surface1 bg-ctp-mantle text-ctp-text placeholder-ctp-overlay0 focus:outline-none focus:ring-2 focus:ring-ctp-mauve focus:border-transparent"
+      class="w-full pl-10 pr-4 py-2.5 text-base sm:text-sm rounded-xl border border-ctp-surface1 bg-ctp-mantle text-ctp-text placeholder-ctp-overlay0 focus:outline-none focus:ring-2 focus:ring-ctp-mauve focus:border-transparent"
       autocomplete="off"
     >
   </div>
@@ -32,10 +32,10 @@ metaDescription: "Eesti laulude akordid ja sõnad kitarrile. Leia oma lemmiklaul
       <button id="toggle-beginner" class="flex items-center gap-1.5 px-4 py-1.5 text-xs rounded-lg font-medium
         bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-colors" title="Lihtsad akordid: C, G, D, Am,
         Em...">Algajale <span id="beginner-dot" class="w-1.5 h-1.5 rounded-full bg-ctp-overlay0"></span></button>
-      <span class="w-px h-5 bg-ctp-surface1"></span>
-      <span id="results-count" class="text-xs text-ctp-overlay1"></span>
+      <span class="hidden sm:block w-px h-5 bg-ctp-surface1"></span>
+      <span id="results-count" class="hidden sm:inline text-xs text-ctp-overlay1"></span>
     </div>
-    <button id="layout-toggle" class="p-1.5 rounded-lg text-ctp-overlay1 hover:text-ctp-text hover:bg-ctp-surface0 transition-colors" title="Vaheta veerge">
+    <button id="layout-toggle" class="hidden sm:block p-1.5 rounded-lg text-ctp-overlay1 hover:text-ctp-text hover:bg-ctp-surface0 transition-colors" title="Vaheta veerge">
       <svg id="icon-multi" class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16" rx="1"/><rect x="6" y="0" width="4" height="16" rx="1"/><rect x="12" y="0" width="4" height="16" rx="1"/></svg>
       <svg id="icon-single" class="w-4 h-4 hidden" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="16" height="16" rx="1"/></svg>
     </button>
