@@ -3,6 +3,11 @@ layout: layout.liquid
 pageTitle: "Eesti laulude akordid"
 ---
 
+<div class="flex items-center justify-between mb-4">
+  <h1 class="text-lg font-bold text-ctp-text">Eesti laulude akordid</h1>
+  <a href="/lisa/" class="px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-mauve hover:text-ctp-crust transition-colors">Lisa laul</a>
+</div>
+
 <div class="mb-8 space-y-3">
   <div class="relative">
     <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ctp-overlay0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -23,7 +28,11 @@ pageTitle: "Eesti laulude akordid"
       <button id="filter-chords" class="filter-btn px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1">Akordid</button>
       <button id="filter-tabs" class="filter-btn px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1">Tabulatuurid</button>
       <span class="w-px h-5 bg-ctp-surface1"></span>
-      <button id="toggle-beginner" class="flex items-center gap-1.5 px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-colors" title="Lihtsad akordid: C, G, D, Am, Em...">Lihtsad akordid <span id="beginner-dot" class="w-1.5 h-1.5 rounded-full bg-ctp-overlay0"></span></button>
+      <button id="toggle-beginner" class="flex items-center gap-1.5 px-4 py-1.5 text-xs rounded-lg font-medium
+        bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-colors" title="Lihtsad akordid: C, G, D, Am,
+        Em...">Algajale <span id="beginner-dot" class="w-1.5 h-1.5 rounded-full bg-ctp-overlay0"></span></button>
+      <span class="w-px h-5 bg-ctp-surface1"></span>
+      <span id="results-count" class="text-xs text-ctp-overlay1"></span>
     </div>
     <button id="layout-toggle" class="p-1.5 rounded-lg text-ctp-overlay1 hover:text-ctp-text hover:bg-ctp-surface0 transition-colors" title="Vaheta veerge">
       <svg id="icon-multi" class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16" rx="1"/><rect x="6" y="0" width="4" height="16" rx="1"/><rect x="12" y="0" width="4" height="16" rx="1"/></svg>
@@ -31,8 +40,6 @@ pageTitle: "Eesti laulude akordid"
     </button>
   </div>
 </div>
-
-<div id="results-count" class="mb-3 text-xs text-ctp-overlay1 hidden"></div>
 
 <div id="song-list" class="columns-1 sm:columns-2 lg:columns-3 gap-x-16">
   {%- assign grouped = collections.songs | groupByArtist %}

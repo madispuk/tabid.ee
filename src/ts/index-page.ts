@@ -87,12 +87,7 @@
 
     noResults.classList.toggle("hidden", visibleSongs > 0);
 
-    if (query || activeFilter !== "all" || beginnerOnly) {
-      resultsCount.textContent = `${visibleSongs} laulu leitud`;
-      resultsCount.classList.remove("hidden");
-    } else {
-      resultsCount.classList.add("hidden");
-    }
+    resultsCount.textContent = `${visibleSongs} laulu leitud`;
   }
 
   search.addEventListener("input", filterSongs);

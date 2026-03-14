@@ -1,0 +1,30 @@
+---
+layout: layout.liquid
+pageTitle: "Lisa laul"
+permalink: /lisa/
+---
+
+<div class="max-w-2xl mx-auto">
+  <h1 class="text-2xl font-bold text-ctp-lavender mb-6">Lisa uus laul</h1>
+
+  <form id="song-form" class="space-y-4">
+    <textarea
+      id="song-content"
+      name="content"
+      rows="28"
+      placeholder="Pista siia akordid/tabulatuur..."
+      class="w-full px-4 py-3 font-mono text-sm rounded-xl border border-ctp-surface1 bg-ctp-mantle text-ctp-text placeholder-ctp-overlay0 focus:outline-none focus:ring-2 focus:ring-ctp-mauve focus:border-transparent resize-y"
+    ></textarea>
+
+    <button
+      type="submit"
+      class="px-6 py-2.5 text-sm font-medium rounded-xl bg-ctp-mauve text-ctp-crust hover:bg-ctp-pink transition-colors"
+    >
+      Saada
+    </button>
+
+    <div id="feedback" class="hidden text-sm rounded-xl px-4 py-3"></div>
+  </form>
+</div>
+
+<script src="/js/lisa-page.js"></script>
