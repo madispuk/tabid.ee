@@ -22,6 +22,8 @@ pageTitle: "Kitarr — Eesti kitarrilaulude kogu"
       <button id="filter-all" class="filter-btn px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-mauve text-ctp-crust">K&otilde;ik</button>
       <button id="filter-chords" class="filter-btn px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1">Akordid</button>
       <button id="filter-tabs" class="filter-btn px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1">Tabulatuurid</button>
+      <span class="w-px h-5 bg-ctp-surface1"></span>
+      <button id="filter-beginner" class="filter-btn px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1" title="Lihtsad akordid: C, G, D, Am, Em...">Algaja <span class="text-[10px] text-ctp-green inline-block align-middle -mt-px">&#9679;</span></button>
     </div>
     <button id="layout-toggle" class="p-1.5 rounded-lg text-ctp-overlay1 hover:text-ctp-text hover:bg-ctp-surface0 transition-colors" title="Vaheta veerge">
       <svg id="icon-multi" class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16" rx="1"/><rect x="6" y="0" width="4" height="16" rx="1"/><rect x="12" y="0" width="4" height="16" rx="1"/></svg>
@@ -39,8 +41,8 @@ pageTitle: "Kitarr — Eesti kitarrilaulude kogu"
     <h2 class="text-xs font-bold uppercase tracking-wide text-ctp-lavender border-b border-ctp-surface0 pb-1 mb-1">{{ group.artist | default("Tundmatu") }}</h2>
     <ul>
       {%- for song in group.songs %}
-      <li class="song-item" data-title="{{ song.song | lower }}" data-artist="{{ song.artist | lower }}" data-tabs="{{ song.hasTabs }}">
-        <a href="/laulud/{{ song.slug }}/" class="block py-px px-1 text-sm leading-snug rounded hover:bg-ctp-surface0 text-ctp-subtext1 hover:text-ctp-mauve truncate">{{ song.song }}</a>
+      <li class="song-item" data-title="{{ song.song | lower }}" data-artist="{{ song.artist | lower }}" data-tabs="{{ song.hasTabs }}" data-difficulty="{{ song.content | songDifficulty }}">
+        <a href="/laulud/{{ song.slug }}/" class="block py-px px-1 text-sm leading-snug rounded hover:bg-ctp-surface0 text-ctp-subtext1 hover:text-ctp-mauve truncate">{{ song.song }}{% if (song.content | songDifficulty) == "beginner" %}<span class="ml-1 text-[10px] text-ctp-green inline-block align-middle -mt-px">&#9679;</span>{% endif %}</a>
       </li>
       {%- endfor %}
     </ul>
@@ -105,7 +107,8 @@ pageTitle: "Kitarr — Eesti kitarrilaulude kogu"
       items.forEach(item => {
         const textMatch = !query || item.dataset.title.includes(query) || item.dataset.artist.includes(query);
         const hasTabs = item.dataset.tabs === 'true';
-        const typeMatch = activeFilter === 'all' || (activeFilter === 'tabs' && hasTabs) || (activeFilter === 'chords' && !hasTabs);
+        const difficulty = item.dataset.difficulty;
+        const typeMatch = activeFilter === 'all' || (activeFilter === 'tabs' && hasTabs) || (activeFilter === 'chords' && !hasTabs) || (activeFilter === 'beginner' && difficulty === 'beginner');
         const match = textMatch && typeMatch;
         item.style.display = match ? '' : 'none';
         if (match) groupVisible++;
@@ -130,6 +133,7 @@ pageTitle: "Kitarr — Eesti kitarrilaulude kogu"
   document.getElementById('filter-all').addEventListener('click', () => { activeFilter = 'all'; setActiveBtn('filter-all'); filterSongs(); });
   document.getElementById('filter-chords').addEventListener('click', () => { activeFilter = 'chords'; setActiveBtn('filter-chords'); filterSongs(); });
   document.getElementById('filter-tabs').addEventListener('click', () => { activeFilter = 'tabs'; setActiveBtn('filter-tabs'); filterSongs(); });
+  document.getElementById('filter-beginner').addEventListener('click', () => { activeFilter = 'beginner'; setActiveBtn('filter-beginner'); filterSongs(); });
 
   function setActiveBtn(id) {
     filterBtns.forEach(b => {
