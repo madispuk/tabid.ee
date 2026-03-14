@@ -1,7 +1,5 @@
-declare const ChordSVG: {
-  render(voicing: any, name: string, opts?: { width?: number; height?: number; mini?: boolean }): string;
-};
-declare const CHORD_DB: Record<string, any[]>;
+import { render as renderChord } from "./chord-svg";
+import { CHORD_DB } from "./chords";
 
 (function () {
   const pre = document.getElementById("song-content") as HTMLPreElement;
@@ -38,6 +36,11 @@ declare const CHORD_DB: Record<string, any[]>;
   // ─── Font size toggle ───
   const fontBtns = document.querySelectorAll<HTMLButtonElement>(".font-size-btn");
   const sizes = ["text-xs", "text-base", "text-xl"];
+  const chordSizes = [
+    { width: 100, height: 126 },
+    { width: 130, height: 164 },
+    { width: 170, height: 214 },
+  ];
   let currentSize = parseInt(localStorage.getItem("songFontSize") ?? "1");
 
   function applySize() {
@@ -57,9 +60,13 @@ declare const CHORD_DB: Record<string, any[]>;
       currentSize = parseInt(btn.dataset.size!);
       localStorage.setItem("songFontSize", String(currentSize));
       applySize();
+      updateChordStrip();
     });
   });
   applySize();
+
+  // ─── Chord Display Mode (frets vs fingers) ───
+  let chordDisplayMode: string = "frets";
 
   // ─── Chord Popup ───
   const popup = document.getElementById("chord-popup")!;
@@ -85,10 +92,12 @@ declare const CHORD_DB: Record<string, any[]>;
       const div = document.createElement("div");
       div.className = "flex-shrink-0";
       div.className = "flex-shrink-0 p-1.5 rounded-lg bg-ctp-surface0";
-      div.innerHTML = ChordSVG.render(v, "", {
-        width: 100,
-        height: 126,
+      const cs = chordSizes[currentSize];
+      div.innerHTML = renderChord(v, "", {
+        width: cs.width,
+        height: cs.height,
         mini: true,
+        displayMode: chordDisplayMode,
       });
       popupVoicings.appendChild(div);
     });
@@ -210,11 +219,13 @@ declare const CHORD_DB: Record<string, any[]>;
       btn.title = chord;
 
       if (voicings && voicings.length > 0) {
+        const cs = chordSizes[currentSize];
         btn.innerHTML =
-          ChordSVG.render(voicings[0], chord, {
-            width: 100,
-            height: 126,
+          renderChord(voicings[0], chord, {
+            width: cs.width,
+            height: cs.height,
             mini: true,
+            displayMode: chordDisplayMode,
           }) +
           `<span class="text-sm font-semibold text-ctp-subtext1 font-mono">${chord}</span>`;
       } else {
@@ -225,6 +236,23 @@ declare const CHORD_DB: Record<string, any[]>;
       chordStripItems.appendChild(btn);
     });
   }
+
+  // ─── Chord Mode Toggle ───
+  document.querySelectorAll(".chord-mode-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mode = (btn as HTMLElement).dataset.mode!;
+      if (mode === chordDisplayMode) return;
+      chordDisplayMode = mode;
+      document.querySelectorAll(".chord-mode-btn").forEach((b) => {
+        if ((b as HTMLElement).dataset.mode === mode) {
+          b.className = "chord-mode-btn text-xs font-medium uppercase tracking-wider px-3 py-1 transition-colors bg-ctp-surface0 text-ctp-lavender";
+        } else {
+          b.className = "chord-mode-btn text-xs font-medium uppercase tracking-wider px-3 py-1 transition-colors text-ctp-overlay0 hover:text-ctp-text";
+        }
+      });
+      updateChordStrip();
+    });
+  });
 
   // ─── Initialize ───
   makeChordsClickable();

@@ -1,6 +1,4 @@
 export default function (eleventyConfig) {
-  eleventyConfig.addPassthroughCopy("src/js");
-
   // Filters work on collection items (each has .data with frontmatter fields)
   eleventyConfig.addFilter("groupByArtist", (items) => {
     const groups = {};

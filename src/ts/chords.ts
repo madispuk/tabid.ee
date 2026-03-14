@@ -2,7 +2,15 @@
 // Each voicing: [E, A, D, G, B, e] where -1 = muted, 0 = open
 // barres: [{from, to, fret}] for barre indicators
 // pos: starting fret (0 = open position, otherwise fret number shown)
-window.CHORD_DB = {
+
+interface Voicing {
+  frets: number[];
+  fingers: number[];
+  pos: number;
+  barres?: { from: number; to: number; fret: number }[];
+}
+
+const CHORD_DB: Record<string, Voicing[]> = {
   // ─── Major ───
   'C':  [
     { frets: [-1,3,2,0,1,0], fingers: [0,3,2,0,1,0], pos: 0 },
@@ -456,32 +464,25 @@ window.CHORD_DB = {
 };
 
 // Aliases for enharmonic equivalents and common name variations
-(function() {
-  const db = window.CHORD_DB;
-  // Map quality aliases
-  const aliases = {
-    'min': 'm', 'minor': 'm',
-  };
-  // Enharmonic: map both ways where missing
-  const enharmonic = {
-    'C#': 'Db', 'Db': 'C#',
-    'D#': 'Eb', 'Eb': 'D#',
-    'F#': 'Gb', 'Gb': 'F#',
-    'G#': 'Ab', 'Ab': 'G#',
-    'A#': 'Bb', 'Bb': 'A#',
-  };
+const enharmonic: Record<string, string> = {
+  'C#': 'Db', 'Db': 'C#',
+  'D#': 'Eb', 'Eb': 'D#',
+  'F#': 'Gb', 'Gb': 'F#',
+  'G#': 'Ab', 'Ab': 'G#',
+  'A#': 'Bb', 'Bb': 'A#',
+};
 
-  // Build enharmonic lookups for all existing chords
-  const keys = Object.keys(db);
-  for (const key of keys) {
-    // Check each enharmonic root
-    for (const [from, to] of Object.entries(enharmonic)) {
-      if (key.startsWith(from)) {
-        const altKey = to + key.slice(from.length);
-        if (!db[altKey]) {
-          db[altKey] = db[key];
-        }
+const keys = Object.keys(CHORD_DB);
+for (const key of keys) {
+  for (const [from, to] of Object.entries(enharmonic)) {
+    if (key.startsWith(from)) {
+      const altKey = to + key.slice(from.length);
+      if (!CHORD_DB[altKey]) {
+        CHORD_DB[altKey] = CHORD_DB[key];
       }
     }
   }
-})();
+}
+
+export { CHORD_DB };
+export type { Voicing };
