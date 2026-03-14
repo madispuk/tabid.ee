@@ -99,11 +99,12 @@ declare const CHORD_DB: Record<string, any[]>;
     popup.style.left =
       Math.max(8, Math.min(rect.left, window.innerWidth - 440)) + "px";
 
+    const popupHeight = popup.offsetHeight || 140;
     const spaceBelow = window.innerHeight - rect.bottom;
-    if (spaceBelow > 160) {
-      popup.style.top = rect.bottom + window.scrollY + 4 + "px";
+    if (spaceBelow > popupHeight + 4) {
+      popup.style.top = rect.bottom + 4 + "px";
     } else {
-      popup.style.top = rect.top + window.scrollY - 140 + "px";
+      popup.style.top = rect.top - popupHeight - 4 + "px";
     }
   }
 
@@ -187,9 +188,6 @@ declare const CHORD_DB: Record<string, any[]>;
   // ─── Chord Summary Strip ───
   const chordStrip = document.getElementById("chord-strip")!;
   const chordStripItems = document.getElementById("chord-strip-items")!;
-  const powerStrip = document.getElementById("power-strip")!;
-  const powerStripItems = document.getElementById("power-strip-items")!;
-
   function updateChordStrip() {
     const content = pre.textContent || "";
     const chords = extractChords(content);
@@ -202,7 +200,6 @@ declare const CHORD_DB: Record<string, any[]>;
     chordStripItems.innerHTML = "";
 
     const db = CHORD_DB;
-    const powerChordRoots = new Set<string>();
 
     chords.forEach((chord) => {
       const voicings =
@@ -226,41 +223,7 @@ declare const CHORD_DB: Record<string, any[]>;
 
       btn.addEventListener("click", () => showChordPopup(chord, btn));
       chordStripItems.appendChild(btn);
-
-      CHORD_RE.lastIndex = 0;
-      const m = CHORD_RE.exec(chord);
-      if (m) powerChordRoots.add(m[1]);
     });
-
-    // Build power chord strip
-    powerStripItems.innerHTML = "";
-    const powerChords: string[] = [];
-    for (const root of powerChordRoots) {
-      const powerName = root + "5";
-      if (db[powerName]) powerChords.push(powerName);
-    }
-
-    if (powerChords.length > 0) {
-      powerStrip.classList.remove("hidden");
-      powerChords.forEach((pc) => {
-        const voicings = db[pc];
-        const btn = document.createElement("button");
-        btn.className =
-          "chord-strip-btn flex flex-col items-center gap-1 p-1.5 rounded-lg bg-ctp-surface0 hover:bg-ctp-surface1 transition-colors";
-        btn.title = pc;
-        btn.innerHTML =
-          ChordSVG.render(voicings[0], pc, {
-            width: 60,
-            height: 76,
-            mini: true,
-          }) +
-          `<span class="text-[11px] font-semibold text-ctp-subtext1 font-mono">${pc}</span>`;
-        btn.addEventListener("click", () => showChordPopup(pc, btn));
-        powerStripItems.appendChild(btn);
-      });
-    } else {
-      powerStrip.classList.add("hidden");
-    }
   }
 
   // ─── Initialize ───

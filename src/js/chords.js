@@ -403,6 +403,56 @@ window.CHORD_DB = {
   'Ebm7': [
     { frets: [-1,6,8,6,7,6], fingers: [0,1,3,1,2,1], pos: 4, barres: [{from:1,to:5,fret:6}] },
   ],
+
+  // ─── Power Chords (5ths) ── root-5th-octave on 3 strings ───
+  'E5': [
+    { frets: [-1,7,9,9,-1,-1], fingers: [0,1,3,4,0,0], pos: 7 },
+    { frets: [0,2,2,-1,-1,-1], fingers: [0,1,3,0,0,0], pos: 0 },
+  ],
+  'F5': [
+    { frets: [1,3,3,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 0 },
+    { frets: [-1,8,10,10,-1,-1], fingers: [0,1,3,4,0,0], pos: 8 },
+  ],
+  'F#5': [
+    { frets: [2,4,4,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 0 },
+    { frets: [-1,9,11,11,-1,-1], fingers: [0,1,3,4,0,0], pos: 9 },
+  ],
+  'G5': [
+    { frets: [3,5,5,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 3 },
+    { frets: [-1,10,12,12,-1,-1], fingers: [0,1,3,4,0,0], pos: 10 },
+  ],
+  'G#5': [
+    { frets: [4,6,6,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 4 },
+  ],
+  'A5': [
+    { frets: [5,7,7,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 5 },
+    { frets: [-1,0,2,2,-1,-1], fingers: [0,0,1,3,0,0], pos: 0 },
+  ],
+  'Bb5': [
+    { frets: [-1,1,3,3,-1,-1], fingers: [0,1,3,4,0,0], pos: 0 },
+    { frets: [6,8,8,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 6 },
+  ],
+  'B5': [
+    { frets: [-1,2,4,4,-1,-1], fingers: [0,1,3,4,0,0], pos: 2 },
+    { frets: [7,9,9,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 7 },
+  ],
+  'C5': [
+    { frets: [-1,3,5,5,-1,-1], fingers: [0,1,3,4,0,0], pos: 3 },
+    { frets: [8,10,10,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 8 },
+  ],
+  'C#5': [
+    { frets: [-1,4,6,6,-1,-1], fingers: [0,1,3,4,0,0], pos: 4 },
+    { frets: [9,11,11,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 9 },
+  ],
+  'D5': [
+    { frets: [-1,5,7,7,-1,-1], fingers: [0,1,3,4,0,0], pos: 5 },
+    { frets: [10,12,12,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 10 },
+    { frets: [-1,-1,0,2,3,-1], fingers: [0,0,0,1,3,0], pos: 0 },
+  ],
+  'Eb5': [
+    { frets: [-1,6,8,8,-1,-1], fingers: [0,1,3,4,0,0], pos: 6 },
+    { frets: [11,13,13,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 11 },
+  ],
 };
 
 // Aliases for enharmonic equivalents and common name variations
