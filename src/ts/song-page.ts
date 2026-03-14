@@ -37,9 +37,9 @@ import { CHORD_DB } from "./chords";
   const fontBtns = document.querySelectorAll<HTMLButtonElement>(".font-size-btn");
   const sizes = ["text-xs", "text-base", "text-xl"];
   const chordSizes = [
-    { width: 100, height: 126 },
-    { width: 130, height: 164 },
-    { width: 170, height: 214 },
+    { width: 100, height: 133 },
+    { width: 130, height: 179 },
+    { width: 170, height: 241 },
   ];
   let currentSize = parseInt(localStorage.getItem("songFontSize") ?? "1");
 

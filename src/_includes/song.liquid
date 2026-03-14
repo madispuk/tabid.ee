@@ -15,7 +15,7 @@ layout: layout.liquid
 
 {%- comment -%} Chord Summary Strip {%- endcomment -%}
 <div id="chord-strip" class="mb-4 hidden">
-  <div class="flex items-center gap-2 mb-2">
+  <div class="flex items-center gap-2 mb-3">
     <div id="chord-mode-toggle" class="flex rounded-lg border border-ctp-surface0 overflow-hidden">
       <button data-mode="frets" class="chord-mode-btn text-xs font-medium uppercase tracking-wider px-3 py-1 transition-colors bg-ctp-surface0 text-ctp-lavender">Vahed</button>
       <button data-mode="fingers" class="chord-mode-btn text-xs font-medium uppercase tracking-wider px-3 py-1 transition-colors text-ctp-overlay0 hover:text-ctp-text">Sõrmed</button>
@@ -31,7 +31,7 @@ layout: layout.liquid
 
 <div class="song-sheet relative rounded-xl border border-ctp-surface0 bg-ctp-mantle overflow-hidden">
   <div class="flex items-center px-4 py-2 border-b border-ctp-surface0 bg-ctp-crust/50">
-    <span class="text-xs text-ctp-overlay0 font-medium uppercase tracking-wider">Akordid & sõnad</span>
+    <span class="text-xs text-ctp-overlay0 font-medium uppercase tracking-wider">Sõnad & Akordid</span>
   </div>
   <pre id="song-content" class="song-pre p-4 md:p-6 overflow-x-auto text-sm md:text-base font-mono leading-relaxed text-ctp-subtext1">{{ content }}</pre>
 </div>

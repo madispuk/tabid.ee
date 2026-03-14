@@ -23,10 +23,10 @@ export function render(voicing: Voicing, chordName: string, opts: RenderOpts = {
   const displayMode = opts.displayMode || "frets";
   const strings = 6;
   const frets = 5;
-  const padTop = mini ? 18 : 28;
-  const padLeft = mini ? 18 : 20;
-  const padRight = mini ? 10 : 12;
-  const padBottom = mini ? 6 : 8;
+  const padTop = Math.round((mini ? 18 : 28) * (w / 80));
+  const padLeft = Math.round((mini ? 18 : 20) * (w / 80));
+  const padRight = Math.round((mini ? 10 : 12) * (w / 80));
+  const padBottom = Math.round((mini ? 6 : 8) * (w / 80));
   const gridW = w - padLeft - padRight;
   const gridH = h - padTop - padBottom;
   const stringSpacing = gridW / (strings - 1);
@@ -83,12 +83,12 @@ export function render(voicing: Voicing, chordName: string, opts: RenderOpts = {
     const x = padLeft + s * stringSpacing;
 
     if (fret === -1) {
-      const y = padTop - 10;
+      const y = padTop - 10 * scale;
       const sz = (mini ? 3 : 4) * scale;
       svg += `<line x1="${x - sz}" y1="${y - sz}" x2="${x + sz}" y2="${y + sz}" stroke="#6c7086" stroke-width="${1.5 * scale}"/>`;
       svg += `<line x1="${x + sz}" y1="${y - sz}" x2="${x - sz}" y2="${y + sz}" stroke="#6c7086" stroke-width="${1.5 * scale}"/>`;
     } else if (fret === 0) {
-      const y = padTop - 10;
+      const y = padTop - 10 * scale;
       svg += `<circle cx="${x}" cy="${y}" r="${(mini ? 2.5 : 3) * scale}" fill="none" stroke="#a6e3a1" stroke-width="${1.5 * scale}"/>`;
     } else {
       const fretIdx = isOpenPos ? fret : fret - pos;

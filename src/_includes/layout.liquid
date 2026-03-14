@@ -3,14 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ pageTitle | default: "Kitarr.astar.ee" }}</title>
+  <title>{{ pageTitle | default: "tabid.ee" }}</title>
+  <meta name="description" content="{{ metaDescription | default: 'Eesti laulude akordid ja sõnad kitarrile. Leia oma lemmiklaulu akordid tabid.ee lehelt.' }}">
+  <link rel="canonical" href="https://tabid.ee{{ page.url }}">
+  <meta property="og:title" content="{{ pageTitle | default: 'tabid.ee' }}">
+  <meta property="og:description" content="{{ metaDescription | default: 'Eesti laulude akordid ja sõnad kitarrile. Leia oma lemmiklaulu akordid tabid.ee lehelt.' }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tabid.ee{{ page.url }}">
+  <meta property="og:site_name" content="tabid.ee">
+  <meta property="og:locale" content="et_EE">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="bg-ctp-base text-ctp-text min-h-screen font-sans">
-  <main class="max-w-5xl mx-auto px-6 py-8">
+  <main class="max-w-5xl mx-auto px-3 md:px-6 py-8">
     {{ content }}
   </main>
 

@@ -45,6 +45,14 @@
   overflow-wrap: normal;
 }
 
+/* Hide scrollbar on chord strip but keep scrollable */
+#chord-strip-items {
+  scrollbar-width: none; /* Firefox */
+}
+#chord-strip-items::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
 /* Custom scrollbar — Catppuccin colors */
 .song-pre::-webkit-scrollbar {
   height: 6px;
