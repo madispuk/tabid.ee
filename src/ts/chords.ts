@@ -266,6 +266,9 @@ const CHORD_DB: Record<string, Voicing[]> = {
   'Asus2': [
     { frets: [-1,0,2,2,0,0], fingers: [0,0,1,2,0,0], pos: 0 },
   ],
+  'Ebsus2': [
+    { frets: [-1,-1,1,3,4,1], fingers: [0,0,1,3,4,1], pos: 0, barres: [{from:2,to:5,fret:1}] },
+  ],
 
   // ─── sus4 ───
   'Csus4': [
@@ -288,6 +291,12 @@ const CHORD_DB: Record<string, Voicing[]> = {
   ],
   'Bsus4': [
     { frets: [-1,2,4,4,5,2], fingers: [0,1,2,3,4,1], pos: 0, barres: [{from:1,to:5,fret:2}] },
+  ],
+  'Bbsus4': [
+    { frets: [-1,1,3,3,4,1], fingers: [0,1,2,3,4,1], pos: 0, barres: [{from:1,to:5,fret:1}] },
+  ],
+  'F#sus4': [
+    { frets: [2,4,4,4,2,2], fingers: [1,3,3,4,1,1], pos: 0, barres: [{from:0,to:5,fret:2}] },
   ],
 
   // ─── sus (alias for sus4) ───
@@ -329,8 +338,14 @@ const CHORD_DB: Record<string, Voicing[]> = {
   'C#dim': [
     { frets: [-1,4,5,3,5,3], fingers: [0,2,3,1,4,1], pos: 1 },
   ],
+  'D#dim': [
+    { frets: [-1,-1,1,2,1,2], fingers: [0,0,1,3,2,4], pos: 0 },
+  ],
   'F#dim': [
     { frets: [-1,-1,4,2,1,2], fingers: [0,0,4,2,1,3], pos: 0 },
+  ],
+  'G#dim': [
+    { frets: [4,5,6,4,6,4], fingers: [1,2,3,1,4,1], pos: 2, barres: [{from:0,to:5,fret:4}] },
   ],
 
   // ─── aug ───
@@ -368,6 +383,9 @@ const CHORD_DB: Record<string, Voicing[]> = {
   ],
   'Aadd9': [
     { frets: [-1,0,2,4,2,0], fingers: [0,0,1,3,2,0], pos: 0 },
+  ],
+  'Fadd9': [
+    { frets: [1,0,3,2,1,0], fingers: [1,0,4,3,2,0], pos: 0 },
   ],
 
   // ─── maj7 ───
@@ -410,6 +428,83 @@ const CHORD_DB: Record<string, Voicing[]> = {
   ],
   'Ebm7': [
     { frets: [-1,6,8,6,7,6], fingers: [0,1,3,1,2,1], pos: 4, barres: [{from:1,to:5,fret:6}] },
+  ],
+
+  // ─── 6th ───
+  'C6': [
+    { frets: [-1,3,2,2,1,0], fingers: [0,4,2,3,1,0], pos: 0 },
+    { frets: [-1,3,5,5,5,5], fingers: [0,1,3,3,3,3], pos: 3, barres: [{from:2,to:5,fret:5}] },
+  ],
+  'D6': [
+    { frets: [-1,-1,0,2,0,2], fingers: [0,0,0,1,0,2], pos: 0 },
+    { frets: [-1,5,4,4,3,-1], fingers: [0,4,2,3,1,0], pos: 1 },
+  ],
+  'E6': [
+    { frets: [0,2,2,1,2,0], fingers: [0,2,3,1,4,0], pos: 0 },
+  ],
+  'F6': [
+    { frets: [1,3,3,2,3,1], fingers: [1,3,3,2,4,1], pos: 0, barres: [{from:0,to:5,fret:1}] },
+    { frets: [-1,-1,3,2,3,1], fingers: [0,0,3,1,4,1], pos: 0 },
+  ],
+  'G6': [
+    { frets: [3,2,0,0,0,0], fingers: [3,2,0,0,0,0], pos: 0 },
+    { frets: [3,2,0,0,3,0], fingers: [2,1,0,0,3,0], pos: 0 },
+  ],
+  'A6': [
+    { frets: [-1,0,2,2,2,2], fingers: [0,0,1,1,1,1], pos: 0, barres: [{from:2,to:5,fret:2}] },
+    { frets: [5,7,7,6,7,5], fingers: [1,3,3,2,4,1], pos: 3, barres: [{from:0,to:5,fret:5}] },
+  ],
+  'B6': [
+    { frets: [-1,2,4,4,4,4], fingers: [0,1,3,3,3,3], pos: 0, barres: [{from:2,to:5,fret:4}] },
+  ],
+  'Eb6': [
+    { frets: [-1,-1,1,3,1,3], fingers: [0,0,1,3,2,4], pos: 0 },
+  ],
+
+  // ─── 9th (dominant) ───
+  'C9': [
+    { frets: [-1,3,2,3,3,3], fingers: [0,2,1,3,3,3], pos: 1, barres: [{from:3,to:5,fret:3}] },
+  ],
+  'D9': [
+    { frets: [-1,-1,0,2,1,2], fingers: [0,0,0,2,1,3], pos: 0 },
+  ],
+  'E9': [
+    { frets: [0,2,0,1,0,2], fingers: [0,2,0,1,0,3], pos: 0 },
+  ],
+  'F9': [
+    { frets: [1,0,1,0,1,0], fingers: [1,0,2,0,3,0], pos: 0 },
+  ],
+  'F#9': [
+    { frets: [2,1,2,1,2,2], fingers: [2,1,3,1,4,4], pos: 0, barres: [{from:1,to:3,fret:1}] },
+  ],
+  'G9': [
+    { frets: [3,2,3,2,3,3], fingers: [2,1,3,1,4,4], pos: 1, barres: [{from:1,to:3,fret:2}] },
+  ],
+  'A9': [
+    { frets: [-1,0,2,4,2,3], fingers: [0,0,1,4,2,3], pos: 0 },
+  ],
+  'Eb9': [
+    { frets: [-1,-1,1,0,2,1], fingers: [0,0,1,0,3,2], pos: 0 },
+  ],
+
+  // ─── Minor 6th ───
+  'Am6': [
+    { frets: [-1,0,2,2,1,2], fingers: [0,0,2,3,1,4], pos: 0 },
+  ],
+  'Cm6': [
+    { frets: [-1,3,1,2,1,3], fingers: [0,3,1,2,1,4], pos: 0, barres: [{from:2,to:4,fret:1}] },
+  ],
+  'Dm6': [
+    { frets: [-1,-1,0,2,0,1], fingers: [0,0,0,2,0,1], pos: 0 },
+  ],
+  'Em6': [
+    { frets: [0,2,2,0,2,0], fingers: [0,1,2,0,3,0], pos: 0 },
+  ],
+  'Fm6': [
+    { frets: [1,3,3,1,3,1], fingers: [1,3,4,1,4,1], pos: 0, barres: [{from:0,to:5,fret:1}] },
+  ],
+  'Gm6': [
+    { frets: [3,5,5,3,5,3], fingers: [1,3,4,1,4,1], pos: 1, barres: [{from:0,to:5,fret:3}] },
   ],
 
   // ─── Power Chords (5ths) ── root-5th-octave on 3 strings ───
@@ -482,6 +577,28 @@ for (const key of keys) {
       }
     }
   }
+}
+
+// Shorthand aliases: "0" = dim, "4" = sus4
+const shorthandAliases: Record<string, string> = {
+  'C0': 'Cdim', 'C#0': 'C#dim', 'D0': 'Ddim', 'D#0': 'D#dim',
+  'E0': 'Edim', 'F0': 'Fdim', 'F#0': 'F#dim', 'G0': 'Gdim',
+  'G#0': 'G#dim', 'A0': 'Adim', 'A#0': 'A#dim', 'B0': 'Bdim',
+  'Bb0': 'Bbdim', 'Eb0': 'Ebdim', 'Ab0': 'Abdim', 'Db0': 'Dbdim', 'Gb0': 'Gbdim',
+  'C4': 'Csus4', 'D4': 'Dsus4', 'E4': 'Esus4', 'F4': 'Fsus4',
+  'F#4': 'F#sus4', 'G4': 'Gsus4', 'A4': 'Asus4', 'B4': 'Bsus4',
+  'Bb4': 'Bbsus4', 'A#4': 'A#sus4',
+  'Eb2': 'Ebsus2',
+};
+for (const [alias, target] of Object.entries(shorthandAliases)) {
+  if (CHORD_DB[target] && !CHORD_DB[alias]) {
+    CHORD_DB[alias] = CHORD_DB[target];
+  }
+}
+
+// Cb enharmonic (not covered by standard sharp/flat pairs)
+if (CHORD_DB['B7'] && !CHORD_DB['Cb7']) {
+  CHORD_DB['Cb7'] = CHORD_DB['B7'];
 }
 
 export { CHORD_DB };
