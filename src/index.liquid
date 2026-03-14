@@ -1,0 +1,59 @@
+---
+layout: layout.liquid
+pageTitle: "Eesti laulude kogu"
+---
+
+<div class="mb-8 space-y-3">
+  <div class="relative">
+    <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ctp-overlay0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+    </svg>
+    <input
+      type="text"
+      id="search"
+      placeholder="Otsi laulu või artisti..."
+      class="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-ctp-surface1 bg-ctp-mantle text-ctp-text placeholder-ctp-overlay0 focus:outline-none focus:ring-2 focus:ring-ctp-mauve focus:border-transparent"
+      autocomplete="off"
+    >
+  </div>
+
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <button id="filter-all" class="filter-btn px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-mauve text-ctp-crust">Kõik</button>
+      <button id="filter-chords" class="filter-btn px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1">Akordid</button>
+      <button id="filter-tabs" class="filter-btn px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1">Tabulatuurid</button>
+      <span class="w-px h-5 bg-ctp-surface1"></span>
+      <button id="toggle-beginner" class="flex items-center gap-1.5 px-4 py-1.5 text-xs rounded-lg font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-colors" title="Lihtsad akordid: C, G, D, Am, Em...">Lihtsad akordid <span id="beginner-dot" class="w-1.5 h-1.5 rounded-full bg-ctp-overlay0"></span></button>
+    </div>
+    <button id="layout-toggle" class="p-1.5 rounded-lg text-ctp-overlay1 hover:text-ctp-text hover:bg-ctp-surface0 transition-colors" title="Vaheta veerge">
+      <svg id="icon-multi" class="w-4 h-4" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="4" height="16" rx="1"/><rect x="6" y="0" width="4" height="16" rx="1"/><rect x="12" y="0" width="4" height="16" rx="1"/></svg>
+      <svg id="icon-single" class="w-4 h-4 hidden" viewBox="0 0 16 16" fill="currentColor"><rect x="0" y="0" width="16" height="16" rx="1"/></svg>
+    </button>
+  </div>
+</div>
+
+<div id="results-count" class="mb-3 text-xs text-ctp-overlay1 hidden"></div>
+
+<div id="song-list" class="columns-1 sm:columns-2 lg:columns-3 gap-x-16">
+  {%- assign grouped = collections.songs | groupByArtist %}
+  {%- for group in grouped %}
+  <div class="artist-group break-inside-avoid mb-4" data-artist="{{ group.artist }}">
+    <h2 class="text-xs font-bold uppercase tracking-wide text-ctp-lavender border-b border-ctp-surface0 pb-1 mb-1">{{ group.artist | default: "Tundmatu" }}</h2>
+    <ul>
+      {%- for item in group.songs %}
+      {%- assign diff = item.content | songDifficulty %}
+      <li class="song-item" data-title="{{ item.data.song | downcase }}" data-artist="{{ item.data.artist | downcase }}" data-tabs="{{ item.data.hasTabs }}" data-difficulty="{{ diff }}">
+        <a href="/laulud/{{ item.data.slug }}/" class="flex items-center justify-between py-px px-1 text-sm leading-snug rounded hover:bg-ctp-surface0 text-ctp-subtext1 hover:text-ctp-mauve"><span class="truncate">{{ item.data.song }}</span></a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+  {%- endfor %}
+</div>
+
+<div id="no-results" class="hidden py-12 text-center text-ctp-overlay1">
+  <p class="text-lg">Ei leidnud &uuml;htegi laulu</p>
+  <p class="text-sm mt-1">Proovi teist otsingut</p>
+</div>
+
+<script src="/js/index-page.js"></script>

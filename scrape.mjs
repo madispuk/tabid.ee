@@ -1,6 +1,9 @@
-import { writeFileSync } from "fs";
+import { writeFileSync, mkdirSync } from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
 
 const API_BASE = "https://kitarr.astar.ee/api.php";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 async function fetchJson(url) {
   const res = await fetch(url);
@@ -60,7 +63,7 @@ function parseSong(page) {
 
   // Extract categories
   const categories = (page.categories || []).map((c) =>
-    c.title.replace("Category:", "")
+    c.title.replace("Category:", ""),
   );
 
   // Extract content from <pre>...</pre> block
@@ -118,6 +121,18 @@ function shouldSkip(title) {
   return false;
 }
 
+function escapeYamlString(str) {
+  if (
+    /[:#{}[\],&*?|>!%@`"']/.test(str) ||
+    str.startsWith("-") ||
+    str.startsWith(" ") ||
+    str.endsWith(" ")
+  ) {
+    return JSON.stringify(str);
+  }
+  return str;
+}
+
 async function main() {
   console.log("Fetching all page titles...");
   const allTitles = await getAllPageTitles();
@@ -132,7 +147,7 @@ async function main() {
   for (let i = 0; i < songTitles.length; i += batchSize) {
     const batch = songTitles.slice(i, i + batchSize);
     console.log(
-      `Fetching batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(songTitles.length / batchSize)}...`
+      `Fetching batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(songTitles.length / batchSize)}...`,
     );
 
     const pages = await fetchPageBatch(batch);
@@ -149,9 +164,10 @@ async function main() {
   }
 
   // Sort by artist, then song title
-  songs.sort((a, b) =>
-    a.artist.localeCompare(b.artist, "et") ||
-    a.song.localeCompare(b.song, "et")
+  songs.sort(
+    (a, b) =>
+      a.artist.localeCompare(b.artist, "et") ||
+      a.song.localeCompare(b.song, "et"),
   );
 
   // Deduplicate slugs
@@ -166,9 +182,26 @@ async function main() {
     }
   }
 
-  const outPath = new URL("src/_data/songs.json", import.meta.url);
-  writeFileSync(outPath, JSON.stringify(songs, null, 2));
-  console.log(`Saved ${songs.length} songs to src/_data/songs.json`);
+  // Output individual .liquid files
+  const songsDir = join(__dirname, "src", "songs");
+  mkdirSync(songsDir, { recursive: true });
+
+  for (const song of songs) {
+    const frontmatter = [
+      "---",
+      `title: ${escapeYamlString(song.title)}`,
+      `artist: ${escapeYamlString(song.artist)}`,
+      `song: ${escapeYamlString(song.song)}`,
+      `slug: ${song.slug}`,
+      `hasTabs: ${song.hasTabs}`,
+      "---",
+    ].join("\n");
+
+    const filePath = join(songsDir, `${song.slug}.liquid`);
+    writeFileSync(filePath, frontmatter + "\n" + song.content + "\n");
+  }
+
+  console.log(`Saved ${songs.length} songs as .liquid files to src/songs/`);
 }
 
 main().catch((err) => {

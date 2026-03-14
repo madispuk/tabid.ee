@@ -386,30 +386,6 @@ window.CHORD_DB = {
     { frets: [-1,2,4,3,4,2], fingers: [0,1,3,2,4,1], pos: 0, barres: [{from:1,to:5,fret:2}] },
   ],
 
-  // ─── Power chords (5) ───
-  'C5': [
-    { frets: [-1,3,5,-1,-1,-1], fingers: [0,1,3,0,0,0], pos: 1 },
-  ],
-  'D5': [
-    { frets: [-1,5,7,-1,-1,-1], fingers: [0,1,3,0,0,0], pos: 3 },
-    { frets: [-1,-1,0,2,3,-1], fingers: [0,0,0,1,2,0], pos: 0 },
-  ],
-  'E5': [
-    { frets: [0,2,2,-1,-1,-1], fingers: [0,1,2,0,0,0], pos: 0 },
-  ],
-  'F5': [
-    { frets: [1,3,3,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 0 },
-  ],
-  'G5': [
-    { frets: [3,5,5,-1,-1,-1], fingers: [1,3,4,0,0,0], pos: 1 },
-  ],
-  'A5': [
-    { frets: [-1,0,2,2,-1,-1], fingers: [0,0,1,2,0,0], pos: 0 },
-  ],
-  'B5': [
-    { frets: [-1,2,4,4,-1,-1], fingers: [0,1,3,4,0,0], pos: 0 },
-  ],
-
   // ─── Minor 7th flat/sharp ───
   'F#m7': [
     { frets: [2,4,2,2,2,2], fingers: [1,3,1,1,1,1], pos: 0, barres: [{from:0,to:5,fret:2}] },

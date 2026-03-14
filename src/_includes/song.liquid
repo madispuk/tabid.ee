@@ -1,0 +1,77 @@
+---
+layout: layout.liquid
+---
+
+<div class="mb-6">
+  <a href="/" class="inline-flex items-center gap-1 text-sm text-ctp-overlay1 hover:text-ctp-lavender transition-colors mb-4">
+    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m15 19-7-7 7-7"/></svg>
+    Tagasi
+  </a>
+
+  <h1 class="text-2xl md:text-3xl font-bold mb-1">
+    {% if artist %}<span class="text-ctp-mauve">{{ artist }}</span><span class="text-ctp-overlay1 font-normal mx-2">–</span>{% endif %}<span class="text-ctp-text">{{ song }}</span>
+  </h1>
+</div>
+
+{%- comment -%} Chord Summary Strip {%- endcomment -%}
+<div id="chord-strip" class="mb-4 hidden">
+  <div class="flex items-center gap-2 mb-2">
+    <span class="text-xs text-ctp-overlay0 font-medium uppercase tracking-wider">Akordid laulus</span>
+  </div>
+  <div id="chord-strip-items" class="flex gap-2 overflow-x-auto pb-2"></div>
+  <div id="power-strip" class="mt-3 hidden">
+    <span class="text-xs text-ctp-overlay0 font-medium uppercase tracking-wider mb-2 block">Power akordid</span>
+    <div id="power-strip-items" class="flex flex-wrap gap-2"></div>
+  </div>
+</div>
+
+<div class="song-sheet relative rounded-xl border border-ctp-surface0 bg-ctp-mantle overflow-hidden">
+  <div class="flex items-center justify-between px-4 py-2 border-b border-ctp-surface0 bg-ctp-crust/50">
+    <div class="flex items-center gap-3">
+      <span class="text-xs text-ctp-overlay0 font-medium uppercase tracking-wider">Akordid & sõnad</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <div id="font-size-toggle" class="flex rounded-lg border border-ctp-surface0 overflow-hidden">
+        <button data-size="0" class="font-size-btn text-[10px] text-ctp-overlay1 hover:text-ctp-text px-2 py-1 transition-colors" title="Väike">S</button>
+        <button data-size="1" class="font-size-btn text-xs text-ctp-overlay1 hover:text-ctp-text px-2 py-1 border-x border-ctp-surface0 transition-colors" title="Keskmine">M</button>
+        <button data-size="2" class="font-size-btn text-sm text-ctp-overlay1 hover:text-ctp-text px-2 py-1 transition-colors" title="Suur">L</button>
+      </div>
+    </div>
+  </div>
+  <pre id="song-content" class="song-pre p-4 md:p-6 overflow-x-auto text-sm md:text-base font-mono leading-relaxed text-ctp-subtext1">{{ content }}</pre>
+</div>
+
+{% assign artistSongs = collections.songs | artistSongs: artist %}
+{% if artistSongs.size > 1 %}
+<div class="mt-10">
+  <div class="flex items-center gap-2 mb-4">
+    <span class="text-xs text-ctp-overlay0 font-medium uppercase tracking-wider">Veel artisti {{ artist }} laule</span>
+  </div>
+  <div class="flex flex-wrap gap-2">
+    {% for s in artistSongs %}
+    {% if s.data.slug != slug %}
+    <a href="/laulud/{{ s.data.slug }}/" class="rounded-lg border border-ctp-surface0 bg-ctp-mantle px-3 py-1.5 text-xs text-ctp-subtext1 hover:border-ctp-mauve/40 hover:text-ctp-mauve transition-all">
+      {{ s.data.song }}
+    </a>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{%- comment -%} Chord Popup {%- endcomment -%}
+<div id="chord-popup" class="fixed z-50 hidden">
+  <div class="bg-ctp-surface0 border border-ctp-surface1 rounded-xl shadow-2xl p-3">
+    <div class="mb-2">
+      <span id="popup-chord-name" class="text-sm font-bold text-ctp-mauve"></span>
+      <span class="text-[10px] text-ctp-overlay0 ml-1">alternatiivid</span>
+    </div>
+    <div id="popup-voicings" class="flex gap-2 overflow-x-auto pb-1"></div>
+    <div class="hidden"><div id="popup-dots"></div></div>
+    <button id="popup-close" class="hidden"></button>
+  </div>
+</div>
+
+<script src="/js/chords.js"></script>
+<script src="/js/chord-svg.js"></script>
+<script src="/js/song-page.js"></script>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="et" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ pageTitle | default: "Kitarr.astar.ee" }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-ctp-base text-ctp-text min-h-screen font-sans">
+  <main class="max-w-5xl mx-auto px-6 py-8">
+    {{ content }}
+  </main>
+
+  <footer class="max-w-5xl mx-auto px-4 py-8 mt-12 border-t border-ctp-surface0">
+    <p class="text-sm text-ctp-overlay0 text-center">
+      Laulude allikas: <a href="https://kitarr.astar.ee" class="underline hover:text-ctp-lavender">kitarr.astar.ee</a>
+    </p>
+  </footer>
+</body>
+</html>
