@@ -1,0 +1,55 @@
+/* Song sheet monospace display */
+.song-pre {
+  tab-size: 4;
+  -moz-tab-size: 4;
+  white-space: pre;
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+/* Custom scrollbar — Catppuccin colors */
+.song-pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+.song-pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.song-pre::-webkit-scrollbar-thumb {
+  background: #45475a;
+  border-radius: 3px;
+}
+
+.song-pre::-webkit-scrollbar-thumb:hover {
+  background: #585b70;
+}
+
+/* Subtle transitions */
+a, button {
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+/* Focus styles — mauve ring */
+:focus-visible {
+  outline: 2px solid #cba6f7;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  header, footer, .no-print, #font-size-toggle {
+    display: none !important;
+  }
+
+  .song-pre {
+    border: none !important;
+    padding: 0 !important;
+    font-size: 12pt !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
