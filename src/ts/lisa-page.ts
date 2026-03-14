@@ -18,6 +18,13 @@
     const content = textarea.value.trim();
     if (!content) return;
 
+    const tokenInput = form.querySelector<HTMLInputElement>("[name='cf-turnstile-response']");
+    const token = tokenInput?.value;
+    if (!token) {
+      showFeedback("Palun kinnita, et sa ei ole robot.", false);
+      return;
+    }
+
     const btn = form.querySelector("button[type=submit]") as HTMLButtonElement;
     btn.disabled = true;
     btn.textContent = "Saadan...";
@@ -26,7 +33,7 @@
       const res = await fetch("/api/songs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content }),
+        body: JSON.stringify({ content, token }),
       });
 
       if (res.ok) {
