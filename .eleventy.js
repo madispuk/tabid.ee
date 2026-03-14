@@ -46,7 +46,7 @@ export default function (eleventyConfig) {
 
   // Extract unique chords from song content
   const CHORD_RE_GLOBAL =
-    /\b([A-G][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-G][#b]?)?\b/g;
+    /(?<![a-zA-Z])([A-G][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-G][#b]?)?(?![a-zA-Z])/g;
   function isChordLine(line) {
     const stripped = line.trim();
     if (!stripped) return false;

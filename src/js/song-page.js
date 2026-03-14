@@ -3,7 +3,7 @@
   // src/ts/song-page.ts
   (function() {
     const pre = document.getElementById("song-content");
-    const CHORD_RE = /\b([A-G][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-G][#b]?)?\b/g;
+    const CHORD_RE = /(?<![a-zA-Z])([A-G][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-G][#b]?)?(?![a-zA-Z])/g;
     function isChordLine(line) {
       const stripped = line.trim();
       if (!stripped) return false;

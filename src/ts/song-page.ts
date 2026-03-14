@@ -7,7 +7,7 @@ declare const CHORD_DB: Record<string, any[]>;
   const pre = document.getElementById("song-content") as HTMLPreElement;
 
   const CHORD_RE =
-    /\b([A-G][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-G][#b]?)?\b/g;
+    /(?<![a-zA-Z])([A-G][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-G][#b]?)?(?![a-zA-Z])/g;
 
   function isChordLine(line: string): boolean {
     const stripped = line.trim();

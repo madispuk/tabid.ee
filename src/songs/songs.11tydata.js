@@ -3,6 +3,6 @@ export default {
   tags: "songs",
   permalink: "laulud/{{ slug }}/index.html",
   eleventyComputed: {
-    pageTitle: (data) => `${data.title} — Kitarr`,
+    pageTitle: (data) => data.title,
   },
 };
