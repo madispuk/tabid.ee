@@ -42,16 +42,49 @@ export default function (eleventyConfig) {
     return JSON.stringify(str).slice(1, -1);
   });
 
+  function sortedSongs(items) {
+    return [...items].sort((a, b) => {
+      const artistA = a.data?.artist || "";
+      const artistB = b.data?.artist || "";
+      const cmp = artistA.localeCompare(artistB, "et");
+      if (cmp !== 0) return cmp;
+      return (a.data?.song || "").localeCompare(b.data?.song || "", "et");
+    });
+  }
+
+  eleventyConfig.addFilter("prevSong", (items, currentSlug) => {
+    const sorted = sortedSongs(items);
+    const idx = sorted.findIndex((item) => item.data?.slug === currentSlug);
+    if (idx <= 0) return null;
+    return sorted[idx - 1].data;
+  });
+
+  eleventyConfig.addFilter("nextSong", (items, currentSlug) => {
+    const sorted = sortedSongs(items);
+    const idx = sorted.findIndex((item) => item.data?.slug === currentSlug);
+    if (idx < 0 || idx >= sorted.length - 1) return null;
+    return sorted[idx + 1].data;
+  });
+
+  eleventyConfig.addFilter("allSlugsJson", (items) => {
+    return JSON.stringify(sortedSongs(items).map((item) => item.data?.slug).filter(Boolean));
+  });
+
   // Extract unique chords from song content
   const CHORD_RE_GLOBAL =
-    /(?<![a-zA-Z])([A-G][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-G][#b]?)?(?![a-zA-Z])/g;
+    /(?<![a-zA-Z])([A-Ga-g][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-Ga-g][#b]?)?(?![a-zA-Z])/gi;
   function isChordLine(line) {
     const stripped = line.trim();
     if (!stripped) return false;
+    if (/^\|?\s*[EBGDAebgd][|\-]/.test(stripped)) return false;
     const withoutChords = stripped
       .replace(CHORD_RE_GLOBAL, "")
       .replace(/[\s|,.\-–—:x\d()\/\[\]]/g, "");
     return withoutChords.length <= stripped.length * 0.3;
+  }
+
+  function normalizeChord(chord) {
+    return chord.charAt(0).toUpperCase() + chord.slice(1);
   }
 
   eleventyConfig.addFilter("extractChords", (content) => {
@@ -63,7 +96,7 @@ export default function (eleventyConfig) {
       CHORD_RE_GLOBAL.lastIndex = 0;
       let m;
       while ((m = CHORD_RE_GLOBAL.exec(line)) !== null) {
-        chords.add(m[0]);
+        chords.add(normalizeChord(m[0]));
       }
     }
     return [...chords];
@@ -97,7 +130,7 @@ export default function (eleventyConfig) {
       CHORD_RE_GLOBAL.lastIndex = 0;
       let m;
       while ((m = CHORD_RE_GLOBAL.exec(line)) !== null) {
-        chords.add(m[0]);
+        chords.add(normalizeChord(m[0]));
       }
     }
     if (chords.size === 0) return "unknown";

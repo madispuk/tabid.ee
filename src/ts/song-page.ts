@@ -5,11 +5,20 @@ import { CHORD_DB } from "./chords";
   const pre = document.getElementById("song-content") as HTMLPreElement;
 
   const CHORD_RE =
-    /(?<![a-zA-Z])([A-G][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-G][#b]?)?(?![a-zA-Z])/g;
+    /(?<![a-zA-Z])([A-Ga-g][#b]?)(m|min|maj|dim|aug|sus[24]?|add)?(\d+)?(\/[A-Ga-g][#b]?)?(?![a-zA-Z])/gi;
+
+  function normalizeChord(chord: string): string {
+    return chord.charAt(0).toUpperCase() + chord.slice(1);
+  }
+
+  function isTabLine(line: string): boolean {
+    return /^\|?\s*[EBGDAebgd][|\-]/.test(line.trim());
+  }
 
   function isChordLine(line: string): boolean {
     const stripped = line.trim();
     if (!stripped) return false;
+    if (isTabLine(line)) return false;
     const withoutChords = stripped
       .replace(CHORD_RE, "")
       .replace(/[\s|,.\-–—:x\d()\/\[\]]/g, "");
@@ -24,9 +33,10 @@ import { CHORD_DB } from "./chords";
       CHORD_RE.lastIndex = 0;
       let m: RegExpExecArray | null;
       while ((m = CHORD_RE.exec(line)) !== null) {
-        if (!seen.has(m[0])) {
-          seen.add(m[0]);
-          chords.push(m[0]);
+        const chord = normalizeChord(m[0]);
+        if (!seen.has(chord)) {
+          seen.add(chord);
+          chords.push(chord);
         }
       }
     }
@@ -175,7 +185,7 @@ import { CHORD_DB } from "./chords";
         span.textContent = m[0];
         span.className =
           "chord-link cursor-pointer text-ctp-mauve hover:text-ctp-pink hover:underline text-[1.15em] font-bold";
-        span.dataset.chord = m[0];
+        span.dataset.chord = normalizeChord(m[0]);
         span.addEventListener("click", (e) => {
           e.stopPropagation();
           showChordPopup(span.dataset.chord!, span);
