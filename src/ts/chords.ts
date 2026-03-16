@@ -269,6 +269,21 @@ const CHORD_DB: Record<string, Voicing[]> = {
   'Ebsus2': [
     { frets: [-1,-1,1,3,4,1], fingers: [0,0,1,3,4,1], pos: 0, barres: [{from:2,to:5,fret:1}] },
   ],
+  'C#sus2': [
+    { frets: [-1,4,6,6,4,4], fingers: [0,1,3,4,1,1], pos: 4, barres: [{from:1,to:5,fret:4}] },
+  ],
+  'F#sus2': [
+    { frets: [2,4,6,6,2,2], fingers: [1,2,3,4,1,1], pos: 2, barres: [{from:0,to:5,fret:2}] },
+  ],
+  'G#sus2': [
+    { frets: [4,6,8,8,4,4], fingers: [1,2,3,4,1,1], pos: 4, barres: [{from:0,to:5,fret:4}] },
+  ],
+  'A#sus2': [
+    { frets: [-1,1,3,3,1,1], fingers: [0,1,3,4,1,1], pos: 0, barres: [{from:1,to:5,fret:1}] },
+  ],
+  'Bsus2': [
+    { frets: [-1,2,4,4,2,2], fingers: [0,1,3,4,1,1], pos: 0, barres: [{from:1,to:5,fret:2}] },
+  ],
 
   // ─── sus4 ───
   'Csus4': [
@@ -297,6 +312,15 @@ const CHORD_DB: Record<string, Voicing[]> = {
   ],
   'F#sus4': [
     { frets: [2,4,4,4,2,2], fingers: [1,3,3,4,1,1], pos: 0, barres: [{from:0,to:5,fret:2}] },
+  ],
+  'C#sus4': [
+    { frets: [-1,4,6,6,7,4], fingers: [0,1,2,3,4,1], pos: 4, barres: [{from:1,to:5,fret:4}] },
+  ],
+  'D#sus4': [
+    { frets: [-1,6,8,8,9,6], fingers: [0,1,2,3,4,1], pos: 6, barres: [{from:1,to:5,fret:6}] },
+  ],
+  'G#sus4': [
+    { frets: [4,6,6,6,4,4], fingers: [1,3,3,4,1,1], pos: 4, barres: [{from:0,to:5,fret:4}] },
   ],
 
   // ─── sus (alias for sus4) ───
@@ -346,6 +370,9 @@ const CHORD_DB: Record<string, Voicing[]> = {
   ],
   'G#dim': [
     { frets: [4,5,6,4,6,4], fingers: [1,2,3,1,4,1], pos: 2, barres: [{from:0,to:5,fret:4}] },
+  ],
+  'A#dim': [
+    { frets: [-1,1,2,3,2,0], fingers: [0,1,2,4,3,0], pos: 0 },
   ],
 
   // ─── aug ───
@@ -585,10 +612,11 @@ const shorthandAliases: Record<string, string> = {
   'E0': 'Edim', 'F0': 'Fdim', 'F#0': 'F#dim', 'G0': 'Gdim',
   'G#0': 'G#dim', 'A0': 'Adim', 'A#0': 'A#dim', 'B0': 'Bdim',
   'Bb0': 'Bbdim', 'Eb0': 'Ebdim', 'Ab0': 'Abdim', 'Db0': 'Dbdim', 'Gb0': 'Gbdim',
-  'C4': 'Csus4', 'D4': 'Dsus4', 'E4': 'Esus4', 'F4': 'Fsus4',
-  'F#4': 'F#sus4', 'G4': 'Gsus4', 'A4': 'Asus4', 'B4': 'Bsus4',
-  'Bb4': 'Bbsus4', 'A#4': 'A#sus4',
-  'Eb2': 'Ebsus2',
+  'C4': 'Csus4', 'C#4': 'C#sus4', 'D4': 'Dsus4', 'D#4': 'D#sus4', 'E4': 'Esus4', 'F4': 'Fsus4',
+  'F#4': 'F#sus4', 'G4': 'Gsus4', 'G#4': 'G#sus4', 'A4': 'Asus4', 'B4': 'Bsus4',
+  'Bb4': 'Bbsus4', 'A#4': 'A#sus4', 'Db4': 'C#sus4', 'Eb4': 'D#sus4', 'Ab4': 'G#sus4',
+  'Eb2': 'Ebsus2', 'C#2': 'C#sus2', 'F#2': 'F#sus2', 'G#2': 'G#sus2', 'A#2': 'A#sus2', 'B2': 'Bsus2',
+  'Db2': 'C#sus2', 'Gb2': 'F#sus2', 'Ab2': 'G#sus2', 'Bb2': 'A#sus2',
 };
 for (const [alias, target] of Object.entries(shorthandAliases)) {
   if (CHORD_DB[target] && !CHORD_DB[alias]) {

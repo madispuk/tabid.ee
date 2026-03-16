@@ -11,6 +11,36 @@ import { CHORD_DB } from "./chords";
     return chord.charAt(0).toUpperCase() + chord.slice(1);
   }
 
+  // ─── Transpose ───
+  const CHROMATIC = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+  const ENHARMONIC: Record<string, string> = {
+    'Db':'C#','Eb':'D#','Fb':'E','Gb':'F#','Ab':'G#','Bb':'A#','Cb':'B','E#':'F','B#':'C'
+  };
+
+  function transposeNote(note: string, semitones: number): string {
+    const n = ENHARMONIC[note] ?? note;
+    const idx = CHROMATIC.indexOf(n);
+    if (idx === -1) return note;
+    return CHROMATIC[((idx + semitones) % 12 + 12) % 12];
+  }
+
+  function transposeChordName(chord: string, semitones: number): string {
+    if (semitones === 0) return chord;
+    const slashIdx = chord.lastIndexOf('/');
+    let main = chord, bass = '';
+    if (slashIdx > 0 && /[A-G]/.test(chord[slashIdx + 1])) {
+      main = chord.slice(0, slashIdx);
+      bass = chord.slice(slashIdx + 1);
+    }
+    const rootMatch = main.match(/^([A-G][#b]?)(.*)$/);
+    if (!rootMatch) return chord;
+    const [, root, quality] = rootMatch;
+    return transposeNote(root, semitones) + quality + (bass ? '/' + transposeNote(bass, semitones) : '');
+  }
+
+  let currentTranspose = 0;
+  const originalContent = pre.textContent || "";
+
   function isTabLine(line: string): boolean {
     return /^\|?\s*[EBGDAebgd][|\-]/.test(line.trim());
   }
@@ -160,8 +190,7 @@ import { CHORD_DB } from "./chords";
 
   // ─── Make chords clickable ───
   function makeChordsClickable() {
-    const text = pre.textContent || "";
-    const lines = text.split("\n");
+    const lines = originalContent.split("\n");
     const fragment = document.createDocumentFragment();
 
     lines.forEach((line, lineIdx) => {
@@ -182,10 +211,11 @@ import { CHORD_DB } from "./chords";
           );
         }
         const span = document.createElement("span");
-        span.textContent = m[0];
+        const transposedChord = transposeChordName(normalizeChord(m[0]), currentTranspose);
+        span.textContent = transposedChord;
         span.className =
           "chord-link cursor-pointer text-ctp-mauve hover:text-ctp-pink hover:underline text-[1.15em] font-bold";
-        span.dataset.chord = normalizeChord(m[0]);
+        span.dataset.chord = transposedChord;
         span.addEventListener("click", (e) => {
           e.stopPropagation();
           showChordPopup(span.dataset.chord!, span);
@@ -211,8 +241,7 @@ import { CHORD_DB } from "./chords";
   const chordStrip = document.getElementById("chord-strip")!;
   const chordStripItems = document.getElementById("chord-strip-items")!;
   function updateChordStrip() {
-    const content = pre.textContent || "";
-    const chords = extractChords(content);
+    const chords = extractChords(originalContent).map(c => transposeChordName(c, currentTranspose));
     if (chords.length === 0) {
       chordStrip.classList.add("hidden");
       return;
@@ -266,6 +295,23 @@ import { CHORD_DB } from "./chords";
       updateChordStrip();
     });
   });
+
+  // ─── Transpose controls ───
+  const transposeValue = document.getElementById("transpose-value")!;
+  const transposeDown = document.getElementById("transpose-down")!;
+  const transposeUp = document.getElementById("transpose-up")!;
+
+  function applyTranspose() {
+    transposeValue.textContent = currentTranspose > 0 ? `+${currentTranspose}` : String(currentTranspose);
+    transposeValue.classList.toggle("text-ctp-mauve", currentTranspose !== 0);
+    transposeValue.classList.toggle("text-ctp-subtext1", currentTranspose === 0);
+    makeChordsClickable();
+    updateChordStrip();
+  }
+
+  function wrapTranspose(n: number): number { n = ((n % 12) + 12) % 12; return n > 6 ? n - 12 : n; }
+  transposeDown.addEventListener("click", () => { currentTranspose = wrapTranspose(currentTranspose - 1); applyTranspose(); });
+  transposeUp.addEventListener("click", () => { currentTranspose = wrapTranspose(currentTranspose + 1); applyTranspose(); });
 
   // ─── Initialize ───
   makeChordsClickable();
