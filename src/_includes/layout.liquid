@@ -33,5 +33,17 @@
       <a href="/privaatsuspoliitika/" class="underline hover:text-ctp-lavender">Privaatsuspoliitika</a>
     </p>
   </footer>
+  <script>
+    if ('wakeLock' in navigator) {
+      let wakeLock = null;
+      async function requestWakeLock() {
+        try { wakeLock = await navigator.wakeLock.request('screen'); } catch (_) {}
+      }
+      requestWakeLock();
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') requestWakeLock();
+      });
+    }
+  </script>
 </body>
 </html>
