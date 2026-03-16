@@ -93,6 +93,16 @@ layout: layout.liquid
   </div>
 </div>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicComposition",
+  "name": "{{ song }}",
+  {% if artist %}"composer": { "@type": "MusicGroup", "name": "{{ artist }}" },{% endif %}
+  "inLanguage": "et",
+  "url": "https://tabid.ee/laulud/{{ slug }}/"
+}
+</script>
 <script src="/js/song-page.js"></script>
 <script>
   (function () {

@@ -18,10 +18,30 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://tabid.ee/og-image.jpg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48">
+  <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "tabid.ee",
+    "url": "https://tabid.ee",
+    "description": "Eesti laulude akordid ja sõnad kitarrile",
+    "inLanguage": "et",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://tabid.ee/#q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 </head>
 <body class="bg-ctp-base text-ctp-text min-h-screen font-sans flex flex-col">
   <main class="flex-1 max-w-5xl w-full mx-auto px-3 md:px-6 py-8">
