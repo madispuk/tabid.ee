@@ -147,6 +147,7 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
+  eleventyConfig.addPassthroughCopy("src/og-image.jpg");
 
   return {
     dir: {
