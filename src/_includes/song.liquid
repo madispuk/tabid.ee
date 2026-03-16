@@ -11,7 +11,7 @@ layout: layout.liquid
     Tagasi
   </a>
 
-  <h1 class="text-2xl md:text-3xl font-bold mb-1">
+  <h1 class="text-xl sm:text-2xl font-bold mb-1">
     {% if artist %}<a href="/artist/{{ artist | artistSlug }}/" class="text-ctp-mauve hover:underline">{{ artist }}</a><span class="text-ctp-overlay1 font-normal mx-2">–</span>{% endif %}<span class="text-ctp-text">{{ song }}</span>
   </h1>
 </div>

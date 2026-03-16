@@ -22,8 +22,12 @@ eleventyComputed:
 
 <div class="space-y-2">
   {%- for item in artistData.songs %}
-  <a href="/laulud/{{ item.data.slug }}/" class="flex items-center justify-between py-2 px-3 rounded-lg border border-ctp-surface0 bg-ctp-mantle text-ctp-subtext1 hover:border-ctp-mauve/40 hover:text-ctp-mauve transition-all">
-    <span class="truncate">{{ item.data.song }}</span>
+  {%- assign chords = item.content | extractChords %}
+  <a href="/laulud/{{ item.data.slug }}/" class="flex items-center justify-between gap-3 py-2 px-3 rounded-lg border border-ctp-surface0 bg-ctp-mantle text-ctp-subtext1 hover:border-ctp-mauve/40 hover:text-ctp-mauve transition-all">
+    <span class="flex-shrink-0">{{ item.data.song }}</span>
+    {%- if chords.size > 0 %}
+    <span class="min-w-0 flex gap-1.5 overflow-hidden justify-end text-[10px] text-ctp-overlay0">{%- for c in chords %}<span class="px-1.5 py-0.5 rounded bg-ctp-mauve/15 text-ctp-mauve font-mono flex-shrink-0">{{ c }}</span>{%- endfor %}</span>
+    {%- endif %}
   </a>
   {%- endfor %}
 </div>

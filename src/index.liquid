@@ -53,7 +53,7 @@ metaDescription: "Eesti laulude akordid ja sõnad kitarrile. Leia oma lemmiklaul
   {%- assign grouped = collections.songs | groupByArtist %}
   {%- for group in grouped %}
   <div class="artist-group break-inside-avoid mb-4" data-artist="{{ group.artist }}">
-    <h2 class="text-xs font-bold uppercase tracking-wide text-ctp-lavender border-b border-ctp-surface0 pb-1 mb-1">{{ group.artist | default: "Tundmatu" }}</h2>
+    <h2 class="text-xs font-bold uppercase tracking-wide text-ctp-lavender border-b border-ctp-surface0 pb-1 mb-1"><a href="/artist/{{ group.artist | artistSlug }}/" class="hover:underline">{{ group.artist | default: "Tundmatu" }}</a></h2>
     <ul>
       {%- for item in group.songs %}
       {%- assign diff = item.content | songDifficulty %}
