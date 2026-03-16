@@ -118,13 +118,16 @@ import { CHORD_DB } from "./chords";
   const popupDots = document.getElementById("popup-dots")!;
   const popupClose = document.getElementById("popup-close")!;
 
+  function parseSlashChord(chordName: string): { baseName: string; bassNote: string | undefined } {
+    const slashMatch = chordName.match(/^(.+)\/([A-G][#b]?)$/);
+    if (slashMatch) return { baseName: slashMatch[1], bassNote: slashMatch[2] };
+    return { baseName: chordName, bassNote: undefined };
+  }
+
   function showChordPopup(chordName: string, anchorEl: HTMLElement) {
     const db = CHORD_DB;
-    let voicings = db[chordName];
-    if (!voicings) {
-      const baseName = chordName.replace(/\/[A-G][#b]?$/, "");
-      voicings = db[baseName];
-    }
+    const { baseName, bassNote } = parseSlashChord(chordName);
+    let voicings = db[chordName] || db[baseName];
     if (!voicings || !voicings.length) return;
 
     popupName.textContent = chordName;
@@ -133,7 +136,6 @@ import { CHORD_DB } from "./chords";
 
     voicings.forEach((v: any) => {
       const div = document.createElement("div");
-      div.className = "flex-shrink-0";
       div.className = "flex-shrink-0 p-1.5 rounded-lg bg-ctp-surface0";
       const cs = chordSizes[currentSize];
       div.innerHTML = renderChord(v, "", {
@@ -141,6 +143,7 @@ import { CHORD_DB } from "./chords";
         height: cs.height,
         mini: true,
         displayMode: chordDisplayMode,
+        bassNote,
       });
       popupVoicings.appendChild(div);
     });
@@ -253,8 +256,8 @@ import { CHORD_DB } from "./chords";
     const db = CHORD_DB;
 
     chords.forEach((chord) => {
-      const voicings =
-        db[chord] || db[chord.replace(/\/[A-G][#b]?$/, "")];
+      const { baseName, bassNote } = parseSlashChord(chord);
+      const voicings = db[chord] || db[baseName];
       const btn = document.createElement("button");
       btn.className =
         "chord-strip-btn flex flex-col items-center gap-1 p-1.5 rounded-lg bg-ctp-surface0 hover:bg-ctp-surface1 transition-colors";
@@ -268,6 +271,7 @@ import { CHORD_DB } from "./chords";
             height: cs.height,
             mini: true,
             displayMode: chordDisplayMode,
+            bassNote,
           }) +
           `<span class="text-sm font-semibold text-ctp-subtext1 font-mono">${chord}</span>`;
       } else {
