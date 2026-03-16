@@ -42,6 +42,36 @@ export default function (eleventyConfig) {
     return JSON.stringify(str).slice(1, -1);
   });
 
+  eleventyConfig.addFilter("toISODate", () => {
+    return new Date().toISOString().split("T")[0];
+  });
+
+  eleventyConfig.addFilter("artistSlug", (name) => {
+    return name
+      .toLowerCase()
+      .replace(/[äÄ]/g, "a")
+      .replace(/[öÖ]/g, "o")
+      .replace(/[üÜ]/g, "u")
+      .replace(/[õÕ]/g, "o")
+      .replace(/[šŠ]/g, "s")
+      .replace(/[žŽ]/g, "z")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+  });
+
+  eleventyConfig.addCollection("artists", (collectionApi) => {
+    const songs = collectionApi.getFilteredByTag("songs");
+    const artistMap = {};
+    for (const song of songs) {
+      const artist = song.data?.artist || "Tundmatu";
+      if (!artistMap[artist]) artistMap[artist] = [];
+      artistMap[artist].push(song);
+    }
+    return Object.entries(artistMap)
+      .sort(([a], [b]) => a.localeCompare(b, "et"))
+      .map(([artist, songs]) => ({ artist, songs }));
+  });
+
   function sortedSongs(items) {
     return [...items].sort((a, b) => {
       const artistA = a.data?.artist || "";

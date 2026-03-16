@@ -6,6 +6,7 @@
   <title>{{ pageTitle | default: "tabid.ee" }}</title>
   <meta name="description" content="{{ metaDescription | default: 'Eesti laulude akordid ja sõnad kitarrile. Leia oma lemmiklaulu akordid tabid.ee lehelt.' }}">
   <link rel="canonical" href="https://tabid.ee{{ page.url }}">
+  <link rel="alternate" hreflang="et" href="https://tabid.ee{{ page.url }}">
   <meta property="og:title" content="{{ pageTitle | default: 'tabid.ee' }}">
   <meta property="og:description" content="{{ metaDescription | default: 'Eesti laulude akordid ja sõnad kitarrile. Leia oma lemmiklaulu akordid tabid.ee lehelt.' }}">
   <meta property="og:type" content="website">
@@ -13,16 +14,20 @@
   <meta property="og:site_name" content="tabid.ee">
   <meta property="og:locale" content="et_EE">
   <meta property="og:image" content="https://tabid.ee/og-image.jpg">
-  <meta property="og:image:width" content="1320">
-  <meta property="og:image:height" content="880">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ pageTitle | default: 'tabid.ee' }}">
+  <meta name="twitter:description" content="{{ metaDescription | default: 'Eesti laulude akordid ja sõnad kitarrile. Leia oma lemmiklaulu akordid tabid.ee lehelt.' }}">
   <meta name="twitter:image" content="https://tabid.ee/og-image.jpg">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon.png" type="image/png" sizes="48x48">
   <link rel="apple-touch-icon" href="/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/css/style.css">
   <script type="application/ld+json">
   {

@@ -6,15 +6,36 @@ eleventyExcludeFromCollections: true
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tabid.ee/</loc>
+    <lastmod>{{ "now" | toISODate }}</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://tabid.ee/tuner/</loc>
+    <lastmod>{{ "now" | toISODate }}</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://tabid.ee/lisa/</loc>
+    <lastmod>{{ "now" | toISODate }}</lastmod>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://tabid.ee/privaatsuspoliitika/</loc>
+    <lastmod>{{ "now" | toISODate }}</lastmod>
+    <priority>0.2</priority>
+  </url>
+  {%- for artistData in collections.artists %}
+  <url>
+    <loc>https://tabid.ee/artist/{{ artistData.artist | artistSlug }}/</loc>
+    <lastmod>{{ "now" | toISODate }}</lastmod>
+    <priority>0.6</priority>
+  </url>
+  {%- endfor %}
   {%- for song in collections.songs %}
   <url>
     <loc>https://tabid.ee/laulud/{{ song.data.slug }}/</loc>
+    <lastmod>{{ "now" | toISODate }}</lastmod>
+    <priority>0.7</priority>
   </url>
   {%- endfor %}
 </urlset>

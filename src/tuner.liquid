@@ -3,44 +3,76 @@ layout: layout.liquid
 pageTitle: "Häälestaja | tabid.ee"
 ---
 
-<div class="w-full max-w-xs mx-auto pt-4">
-  <a href="/" class="inline-flex items-center gap-1 text-sm text-ctp-overlay1 hover:text-ctp-lavender transition-colors mb-8">
+<div class="w-full max-w-sm mx-auto">
+  <a href="/" class="inline-flex items-center gap-1 text-sm text-ctp-overlay1 hover:text-ctp-lavender transition-colors mb-6">
     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="m15 19-7-7 7-7"/></svg>
     Tagasi
   </a>
 
-  <div class="flex justify-center gap-1 mb-4">
-    <button class="tuner-str-btn px-2 py-1 text-xs rounded-md font-medium bg-ctp-mauve text-ctp-crust" data-str="-1">Auto</button>
-    <button class="tuner-str-btn px-2 py-1 text-xs rounded-md font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1" data-str="0">E2</button>
-    <button class="tuner-str-btn px-2 py-1 text-xs rounded-md font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1" data-str="1">A2</button>
-    <button class="tuner-str-btn px-2 py-1 text-xs rounded-md font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1" data-str="2">D3</button>
-    <button class="tuner-str-btn px-2 py-1 text-xs rounded-md font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1" data-str="3">G3</button>
-    <button class="tuner-str-btn px-2 py-1 text-xs rounded-md font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1" data-str="4">B3</button>
-    <button class="tuner-str-btn px-2 py-1 text-xs rounded-md font-medium bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1" data-str="5">E4</button>
-  </div>
+  <div class="flex flex-col items-center md:rounded-2xl md:border md:border-ctp-surface0 md:bg-ctp-mantle md:px-8 md:py-10">
+    <h1 class="text-sm font-medium text-ctp-overlay1 uppercase tracking-wider mb-6">Häälestaja</h1>
 
-  <svg id="tuner-gauge" viewBox="0 0 200 128" xmlns="http://www.w3.org/2000/svg">
-    <!-- Background arc -->
-    <path d="M 28.99 67 A 82 82 0 0 1 171.01 67" fill="none" stroke="#313244" stroke-width="18" stroke-linecap="round"/>
-    <!-- Green zone -->
-    <path d="M 82.95 27.79 A 82 82 0 0 1 117.05 27.79" fill="none" stroke="#a6e3a1" stroke-width="14" stroke-linecap="butt"/>
-    <!-- Needle -->
-    <line id="tuner-needle"
-      x1="100" y1="108"
-      x2="100" y2="26"
-      stroke="#cba6f7" stroke-width="2.5" stroke-linecap="round"
-      transform="rotate(0, 100, 108)"
-    />
-    <circle cx="100" cy="108" r="4" fill="#cba6f7"/>
-    <text id="tuner-note" x="100" y="12" text-anchor="middle" font-size="14" font-weight="700" fill="#cdd6f4"></text>
-    <text x="14" y="72" text-anchor="middle" font-size="10" fill="#585b70">♭</text>
-    <text x="186" y="72" text-anchor="middle" font-size="10" fill="#585b70">♯</text>
-  </svg>
+    <!-- Note display -->
+    <div class="flex flex-col items-center mb-2">
+      <span id="tuner-note-display" class="text-5xl md:text-6xl font-mono font-bold text-ctp-text tabular-nums h-16 flex items-center tracking-tight"></span>
+      <span id="tuner-cents-display" class="text-sm font-mono text-ctp-overlay1 h-5"></span>
+    </div>
 
-  <div class="flex justify-center mt-6">
-    <button id="tuner-start" class="px-6 py-2.5 rounded-xl font-medium text-sm bg-ctp-mauve text-ctp-crust hover:bg-ctp-pink transition-colors">
-      Luba mikrofon
-    </button>
+    <!-- Gauge -->
+    <div class="w-full max-w-xs mx-auto mb-6">
+      <svg id="tuner-gauge" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" class="w-full">
+        <!-- Tick marks -->
+        <line x1="30" y1="62" x2="38" y2="58" stroke="#45475a" stroke-width="1" stroke-linecap="round"/>
+        <line x1="47" y1="42" x2="54" y2="41" stroke="#45475a" stroke-width="1" stroke-linecap="round"/>
+        <line x1="72" y1="28" x2="76" y2="30" stroke="#45475a" stroke-width="1" stroke-linecap="round"/>
+        <line x1="124" y1="30" x2="128" y2="28" stroke="#45475a" stroke-width="1" stroke-linecap="round"/>
+        <line x1="146" y1="41" x2="153" y2="42" stroke="#45475a" stroke-width="1" stroke-linecap="round"/>
+        <line x1="162" y1="58" x2="170" y2="62" stroke="#45475a" stroke-width="1" stroke-linecap="round"/>
+        <!-- Background arc -->
+        <path d="M 28.99 67 A 82 82 0 0 1 171.01 67" fill="none" stroke="#313244" stroke-width="16" stroke-linecap="round"/>
+        <!-- Green zone (in-tune) -->
+        <path d="M 82.95 27.79 A 82 82 0 0 1 117.05 27.79" fill="none" stroke="#a6e3a1" stroke-width="16" stroke-linecap="round" opacity="0.6"/>
+        <!-- Green zone glow -->
+        <path d="M 82.95 27.79 A 82 82 0 0 1 117.05 27.79" fill="none" stroke="#a6e3a1" stroke-width="24" stroke-linecap="round" opacity="0.08"/>
+        <!-- Needle -->
+        <line id="tuner-needle"
+          x1="100" y1="100"
+          x2="100" y2="22"
+          stroke="#cba6f7" stroke-width="2.5" stroke-linecap="round"
+          transform="rotate(0, 100, 100)"
+        />
+        <circle cx="100" cy="100" r="5" fill="#cba6f7"/>
+        <circle cx="100" cy="100" r="2" fill="#1e1e2e"/>
+        <!-- Flat / Sharp labels -->
+        <text x="16" y="74" text-anchor="middle" font-size="12" fill="#585b70" font-weight="500">&#x266d;</text>
+        <text x="184" y="74" text-anchor="middle" font-size="12" fill="#585b70" font-weight="500">&#x266f;</text>
+      </svg>
+    </div>
+
+    <!-- String selector -->
+    <div class="w-full mb-8">
+      <div class="grid grid-cols-7 gap-1.5 md:gap-2">
+        <button class="tuner-str-btn flex items-center justify-center py-3 md:py-2.5 rounded-xl text-sm font-bold bg-ctp-mauve text-ctp-crust transition-all active:scale-95" data-str="-1">Auto</button>
+        <button class="tuner-str-btn flex items-center justify-center py-3 md:py-2.5 rounded-xl text-sm font-bold bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-all active:scale-95" data-str="0">E2</button>
+        <button class="tuner-str-btn flex items-center justify-center py-3 md:py-2.5 rounded-xl text-sm font-bold bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-all active:scale-95" data-str="1">A2</button>
+        <button class="tuner-str-btn flex items-center justify-center py-3 md:py-2.5 rounded-xl text-sm font-bold bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-all active:scale-95" data-str="2">D3</button>
+        <button class="tuner-str-btn flex items-center justify-center py-3 md:py-2.5 rounded-xl text-sm font-bold bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-all active:scale-95" data-str="3">G3</button>
+        <button class="tuner-str-btn flex items-center justify-center py-3 md:py-2.5 rounded-xl text-sm font-bold bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-all active:scale-95" data-str="4">B3</button>
+        <button class="tuner-str-btn flex items-center justify-center py-3 md:py-2.5 rounded-xl text-sm font-bold bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-all active:scale-95" data-str="5">E4</button>
+      </div>
+    </div>
+
+    <!-- Start button -->
+    <div class="flex justify-center">
+      <button id="tuner-start" class="group flex items-center gap-2.5 px-8 py-3.5 rounded-2xl font-medium text-sm bg-ctp-mauve text-ctp-crust hover:bg-ctp-pink transition-all active:scale-95 shadow-lg shadow-ctp-mauve/20">
+        <svg class="w-5 h-5 transition-transform group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" x2="12" y1="19" y2="22"/>
+        </svg>
+        Luba mikrofon
+      </button>
+    </div>
   </div>
 </div>
 

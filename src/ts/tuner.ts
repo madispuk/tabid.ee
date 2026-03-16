@@ -97,7 +97,8 @@
     const rms = getRms(buf);
     const freq = autoCorrelate(buf, analyser.context.sampleRate);
 
-    const noteEl = document.getElementById('tuner-note');
+    const noteEl = document.getElementById('tuner-note-display');
+    const centsEl = document.getElementById('tuner-cents-display');
     const needle = document.getElementById('tuner-needle');
 
     if (freq > 0 && rms > 0.015) {
@@ -115,7 +116,7 @@
       smoothedCents += (cents - smoothedCents) * alpha;
       smoothedRot += ((smoothedCents / 50) * 60 - smoothedRot) * 0.25;
 
-      if (needle) needle.setAttribute('transform', `rotate(${smoothedRot.toFixed(2)}, 100, 108)`);
+      if (needle) needle.setAttribute('transform', `rotate(${smoothedRot.toFixed(2)}, 100, 100)`);
 
       const { name, octave } = freqToNote(stableFreq);
       const absCents = Math.abs(smoothedCents);
@@ -123,21 +124,39 @@
 
       lastNote = `${name}${octave}`;
       lastNeedleColor = color;
-      if (noteEl) noteEl.textContent = lastNote;
+      if (noteEl) {
+        noteEl.textContent = lastNote;
+        noteEl.style.color = color;
+      }
+      if (centsEl) {
+        const sign = smoothedCents >= 0 ? '+' : '';
+        centsEl.textContent = `${sign}${Math.round(smoothedCents)} cents`;
+      }
       setNeedleColor(color);
     } else {
       if (holdFrames > 0) {
         holdFrames--;
         smoothedRot += (0 - smoothedRot) * 0.015;
         smoothedCents += (0 - smoothedCents) * 0.015;
-        if (needle) needle.setAttribute('transform', `rotate(${smoothedRot.toFixed(2)}, 100, 108)`);
-        if (noteEl) noteEl.textContent = lastNote;
+        if (needle) needle.setAttribute('transform', `rotate(${smoothedRot.toFixed(2)}, 100, 100)`);
+        if (noteEl) {
+          noteEl.textContent = lastNote;
+          noteEl.style.color = lastNeedleColor;
+        }
+        if (centsEl) {
+          const sign = smoothedCents >= 0 ? '+' : '';
+          centsEl.textContent = `${sign}${Math.round(smoothedCents)} cents`;
+        }
         setNeedleColor(lastNeedleColor);
       } else {
         smoothedRot += (0 - smoothedRot) * 0.05;
         smoothedCents += (0 - smoothedCents) * 0.05;
-        if (needle) needle.setAttribute('transform', `rotate(${smoothedRot.toFixed(2)}, 100, 108)`);
-        if (noteEl) noteEl.textContent = '';
+        if (needle) needle.setAttribute('transform', `rotate(${smoothedRot.toFixed(2)}, 100, 100)`);
+        if (noteEl) {
+          noteEl.textContent = '';
+          noteEl.style.color = '';
+        }
+        if (centsEl) centsEl.textContent = '';
         setNeedleColor('#cba6f7');
         freqHistory = [];
       }
