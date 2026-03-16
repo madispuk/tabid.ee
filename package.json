@@ -1,7 +1,7 @@
 {
-  "name": "kitarr-astar-ee",
+  "name": "tabid-ee",
   "version": "1.0.0",
-  "description": "Modern song browser for kitarr.astar.ee",
+  "description": "Eesti laulude akordid ja sõnad kitarrile",
   "type": "module",
   "scripts": {
     "scrape": "node scrape.mjs",
