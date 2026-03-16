@@ -146,6 +146,8 @@ export default function (eleventyConfig) {
     return "beginner";
   });
 
+  eleventyConfig.addPassthroughCopy("src/favicon.svg");
+
   return {
     dir: {
       input: "src",
