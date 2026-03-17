@@ -18,7 +18,9 @@
     const params = new URLSearchParams(location.hash.slice(1));
     search.value = params.get("q") || "";
     activeFilter = params.get("f") || "all";
-    beginnerOnly = params.get("b") === "1";
+    beginnerOnly =
+      params.get("b") === "1" ||
+      (!params.has("b") && localStorage.getItem("beginnerOnly") === "1");
     setActiveBtn("filter-" + activeFilter);
     applyBeginnerToggle();
     multiCol =
@@ -36,6 +38,7 @@
     const hash = params.toString();
     history.replaceState(null, "", hash ? "#" + hash : location.pathname);
     localStorage.setItem("cols", multiCol ? "multi" : "single");
+    localStorage.setItem("beginnerOnly", beginnerOnly ? "1" : "0");
   }
 
   function applyLayout() {

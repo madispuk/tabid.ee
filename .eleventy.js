@@ -28,7 +28,12 @@ export default function (eleventyConfig) {
     }
     return Object.entries(groups)
       .sort(([a], [b]) => a.localeCompare(b, "et"))
-      .map(([artist, songs]) => ({ artist, songs }));
+      .map(([artist, songs]) => ({
+        artist,
+        songs: songs.sort((a, b) =>
+          (a.data?.song || "").localeCompare(b.data?.song || "", "et"),
+        ),
+      }));
   });
 
   eleventyConfig.addFilter("artistSongs", (items, artist) => {
@@ -110,14 +115,6 @@ export default function (eleventyConfig) {
     const idx = sorted.findIndex((item) => item.data?.slug === currentSlug);
     if (idx < 0 || idx >= sorted.length - 1) return null;
     return sorted[idx + 1].data;
-  });
-
-  eleventyConfig.addFilter("allSlugsJson", (items) => {
-    return JSON.stringify(
-      sortedSongs(items)
-        .map((item) => item.data?.slug)
-        .filter(Boolean),
-    );
   });
 
   // Extract unique chords from song content

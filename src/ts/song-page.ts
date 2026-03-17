@@ -261,12 +261,12 @@ import { CHORD_DB } from "./chords";
   const chordStripItems = document.getElementById("chord-strip-items")!;
   function updateChordStrip() {
     const chords = extractChords(originalContent).map(c => transposeChordName(c, currentTranspose));
+    chordStrip.classList.remove("hidden");
     if (chords.length === 0) {
-      chordStrip.classList.add("hidden");
+      chordStripItems.classList.add("hidden");
       return;
     }
-
-    chordStrip.classList.remove("hidden");
+    chordStripItems.classList.remove("hidden");
     chordStripItems.innerHTML = "";
 
     const db = CHORD_DB;
