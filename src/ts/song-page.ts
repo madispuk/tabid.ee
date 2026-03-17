@@ -229,6 +229,23 @@ import { CHORD_DB } from "./chords";
         span.addEventListener("mouseleave", scheduleHide);
         fragment.appendChild(span);
         lastIndex = m.index + m[0].length;
+
+        // Compensate for chord length changes to keep alignment
+        const diff = transposedChord.length - m[0].length;
+        if (diff > 0) {
+          // Chord got longer – consume trailing whitespace
+          // Count available trailing spaces
+          let available = 0;
+          while (lastIndex + available < line.length && line[lastIndex + available] === ' ') {
+            available++;
+          }
+          // Consume spaces but always keep at least 1
+          const consume = Math.min(diff, Math.max(0, available - 1));
+          lastIndex += consume;
+        } else if (diff < 0) {
+          // Chord got shorter – add padding spaces
+          fragment.appendChild(document.createTextNode(' '.repeat(-diff)));
+        }
       }
       if (lastIndex < line.length) {
         fragment.appendChild(document.createTextNode(line.slice(lastIndex)));
