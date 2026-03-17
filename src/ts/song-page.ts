@@ -42,7 +42,7 @@ import { CHORD_DB } from "./chords";
   const originalContent = pre.textContent || "";
 
   function isTabLine(line: string): boolean {
-    return /^\|?\s*[EBGDAebgd][|\-]/.test(line.trim());
+    return /^\|?\s*[EBGDAebgda][|\-]/.test(line.trim());
   }
 
   function isChordLine(line: string): boolean {
