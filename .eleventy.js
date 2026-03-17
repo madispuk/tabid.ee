@@ -1,4 +1,22 @@
+import { createHash } from "crypto";
+import { readFileSync } from "fs";
+import { join } from "path";
+
 export default function (eleventyConfig) {
+  const hashCache = {};
+  eleventyConfig.addFilter("cacheBust", (url) => {
+    if (hashCache[url]) return `${url}?v=${hashCache[url]}`;
+    try {
+      const filePath = join("_site", url);
+      const content = readFileSync(filePath);
+      const hash = createHash("md5").update(content).digest("hex").slice(0, 8);
+      hashCache[url] = hash;
+      return `${url}?v=${hash}`;
+    } catch {
+      return url;
+    }
+  });
+
   // Filters work on collection items (each has .data with frontmatter fields)
   eleventyConfig.addFilter("groupByArtist", (items) => {
     const groups = {};

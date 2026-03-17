@@ -306,6 +306,56 @@ import { CHORD_DB } from "./chords";
   const scrollSlider = document.getElementById("scroll-speed") as HTMLInputElement;
   let scrollVisible = false;
 
+  // Autoscroll: rAF loop, accumulates fractional px and scrolls whole pixels.
+  // Slider 1–80 maps to 5–100 px/s.
+  let scrollPxPerSec = 0;
+  let scrollRafId: number | null = null;
+  let scrollPrev: number | null = null;
+  let scrollRemainder = 0;
+  let touchActive = false;
+
+  document.addEventListener("touchstart", (e) => {
+    if (!scrollBar.contains(e.target as Node)) touchActive = true;
+  }, { passive: true });
+  document.addEventListener("touchend", (e) => {
+    if (!scrollBar.contains(e.target as Node)) touchActive = false;
+  }, { passive: true });
+
+  function scrollTick(now: number) {
+    if (scrollPrev !== null && !touchActive) {
+      const dt = (now - scrollPrev) / 1000;
+      scrollRemainder += scrollPxPerSec * dt;
+      const px = Math.floor(scrollRemainder);
+      if (px >= 1) {
+        scrollRemainder -= px;
+        window.scrollBy(0, px);
+      }
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 2) {
+        scrollPrev = now;
+        scrollRafId = requestAnimationFrame(scrollTick);
+        return;
+      }
+    }
+    scrollPrev = now;
+    scrollRafId = requestAnimationFrame(scrollTick);
+  }
+
+  function startScroll() {
+    if (scrollRafId !== null) return;
+    scrollPrev = null;
+    scrollRemainder = 0;
+    scrollRafId = requestAnimationFrame(scrollTick);
+  }
+
+  function stopScroll() {
+    if (scrollRafId !== null) {
+      cancelAnimationFrame(scrollRafId);
+      scrollRafId = null;
+      scrollPrev = null;
+      scrollRemainder = 0;
+    }
+  }
+
   scrollToggle.addEventListener("click", () => {
     scrollVisible = !scrollVisible;
     scrollBar.classList.toggle("hidden", !scrollVisible);
@@ -315,59 +365,19 @@ import { CHORD_DB } from "./chords";
     scrollToggle.classList.toggle("text-ctp-overlay1", !scrollVisible);
     if (!scrollVisible) {
       scrollSlider.value = "0";
-      scrollSpeed = 0;
-      stopScrollLoop();
+      scrollPxPerSec = 0;
+      stopScroll();
     }
   });
-  let scrollSpeed = 0;
-  let scrollRafId: number | null = null;
-  let scrollLastTime: number | null = null;
-  let scrollAccum = 0;
-
-  function scrollLoop(now: number) {
-    if (scrollLastTime !== null) {
-      const delta = (now - scrollLastTime) / 1000;
-      scrollAccum += scrollSpeed * delta;
-      const px = Math.floor(scrollAccum);
-      if (px >= 1) {
-        window.scrollBy(0, px);
-        scrollAccum -= px;
-      }
-
-      const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 1;
-      if (atBottom) {
-        scrollSpeed = 0;
-        scrollSlider.value = "0";
-        stopScrollLoop();
-        return;
-      }
-    }
-    scrollLastTime = now;
-    scrollRafId = requestAnimationFrame(scrollLoop);
-  }
-
-  function startScrollLoop() {
-    if (scrollRafId !== null) return;
-    scrollLastTime = null;
-    scrollRafId = requestAnimationFrame(scrollLoop);
-  }
-
-  function stopScrollLoop() {
-    if (scrollRafId !== null) {
-      cancelAnimationFrame(scrollRafId);
-      scrollRafId = null;
-      scrollLastTime = null;
-    }
-  }
 
   scrollSlider.addEventListener("input", () => {
     const v = Number(scrollSlider.value);
-    scrollSpeed = v * 6;
-    console.log(`slider=${v} speed=${scrollSpeed} px/s`);
-    if (scrollSpeed > 0) {
-      startScrollLoop();
+    // slider 0 = stop, 1–80 maps to 3–40 px/s
+    scrollPxPerSec = v <= 0 ? 0 : 3 + (v / 80) * 37;
+    if (scrollPxPerSec > 0) {
+      startScroll();
     } else {
-      stopScrollLoop();
+      stopScroll();
     }
   });
 

@@ -144,7 +144,7 @@ layout: layout.liquid
   ]
 }
 </script>
-<script src="/js/song-page.js"></script>
+<script src="{{ "/js/song-page.js" | cacheBust }}"></script>
 <script>
   (function () {
     const btn = document.getElementById("random-btn");
