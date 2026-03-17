@@ -10,6 +10,7 @@
   const iconSingle = document.getElementById("icon-single")!;
   const beginnerBtn = document.getElementById("toggle-beginner")!;
   const beginnerDot = document.getElementById("beginner-dot")!;
+  const searchClear = document.getElementById("search-clear")!;
   let activeFilter = "all";
   let beginnerOnly = false;
   let multiCol = true;
@@ -27,6 +28,7 @@
       (params.get("cols") || localStorage.getItem("cols") || "multi") !==
       "single";
     applyLayout();
+    updateClearBtn();
   }
 
   function saveState() {
@@ -93,7 +95,27 @@
     resultsCount.textContent = `${visibleSongs} laulu leitud`;
   }
 
-  search.addEventListener("input", filterSongs);
+  function updateClearBtn() {
+    if (search.value) {
+      searchClear.classList.remove("hidden");
+      searchClear.classList.add("flex");
+    } else {
+      searchClear.classList.add("hidden");
+      searchClear.classList.remove("flex");
+    }
+  }
+
+  search.addEventListener("input", () => {
+    updateClearBtn();
+    filterSongs();
+  });
+
+  searchClear.addEventListener("click", () => {
+    search.value = "";
+    updateClearBtn();
+    filterSongs();
+    search.focus();
+  });
 
   document.getElementById("filter-all")!.addEventListener("click", () => {
     activeFilter = "all";

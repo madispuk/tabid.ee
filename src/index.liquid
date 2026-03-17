@@ -25,9 +25,12 @@ metaDescription: "Eesti laulude akordid ja sõnad kitarrile. Leia oma lemmiklaul
       type="text"
       id="search"
       placeholder="Otsi laulu või artisti..."
-      class="w-full pl-10 pr-4 py-2.5 text-base sm:text-sm rounded-xl border border-ctp-surface1 bg-ctp-mantle text-ctp-text placeholder-ctp-overlay0 focus:outline-none focus:ring-2 focus:ring-ctp-mauve focus:border-transparent"
+      class="w-full pl-10 pr-10 py-2.5 text-base sm:text-sm rounded-xl border border-ctp-surface1 bg-ctp-mantle text-ctp-text placeholder-ctp-overlay0 focus:outline-none focus:ring-2 focus:ring-ctp-mauve focus:border-transparent"
       autocomplete="off"
     >
+    <button id="search-clear" class="hidden absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-ctp-surface1 hover:bg-ctp-surface2 text-ctp-overlay1 hover:text-ctp-text transition-colors items-center justify-center" type="button">
+      <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
   </div>
 
   <div class="flex items-center justify-between">
