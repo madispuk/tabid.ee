@@ -108,8 +108,7 @@ import { CHORD_DB } from "./chords";
   });
   applySize();
 
-  // ─── Chord Display Mode (frets vs fingers) ───
-  let chordDisplayMode: string = "frets";
+  const chordDisplayMode = "frets";
 
   // ─── Chord Popup ───
   const popup = document.getElementById("chord-popup")!;
@@ -283,23 +282,6 @@ import { CHORD_DB } from "./chords";
     });
   }
 
-  // ─── Chord Mode Toggle ───
-  document.querySelectorAll(".chord-mode-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const mode = (btn as HTMLElement).dataset.mode!;
-      if (mode === chordDisplayMode) return;
-      chordDisplayMode = mode;
-      document.querySelectorAll(".chord-mode-btn").forEach((b) => {
-        if ((b as HTMLElement).dataset.mode === mode) {
-          b.className = "chord-mode-btn text-xs font-medium uppercase tracking-wider px-4 py-2 md:px-3 md:py-1 transition-colors bg-ctp-surface0 text-ctp-lavender";
-        } else {
-          b.className = "chord-mode-btn text-xs font-medium uppercase tracking-wider px-4 py-2 md:px-3 md:py-1 transition-colors text-ctp-overlay0 hover:text-ctp-text";
-        }
-      });
-      updateChordStrip();
-    });
-  });
-
   // ─── Transpose controls ───
   const transposeValue = document.getElementById("transpose-value")!;
   const transposeDown = document.getElementById("transpose-down")!;
@@ -316,6 +298,78 @@ import { CHORD_DB } from "./chords";
   function wrapTranspose(n: number): number { n = ((n % 12) + 12) % 12; return n > 6 ? n - 12 : n; }
   transposeDown.addEventListener("click", () => { currentTranspose = wrapTranspose(currentTranspose - 1); applyTranspose(); });
   transposeUp.addEventListener("click", () => { currentTranspose = wrapTranspose(currentTranspose + 1); applyTranspose(); });
+
+  // ─── Auto-scroll ───
+  const scrollToggle = document.getElementById("autoscroll-toggle")!;
+  const scrollBar = document.getElementById("autoscroll-bar")!;
+  const scrollSpacer = document.getElementById("autoscroll-spacer")!;
+  const scrollSlider = document.getElementById("scroll-speed") as HTMLInputElement;
+  let scrollVisible = false;
+
+  scrollToggle.addEventListener("click", () => {
+    scrollVisible = !scrollVisible;
+    scrollBar.classList.toggle("hidden", !scrollVisible);
+    scrollSpacer.classList.toggle("hidden", !scrollVisible);
+    scrollToggle.classList.toggle("bg-ctp-surface0", scrollVisible);
+    scrollToggle.classList.toggle("text-ctp-mauve", scrollVisible);
+    scrollToggle.classList.toggle("text-ctp-overlay1", !scrollVisible);
+    if (!scrollVisible) {
+      scrollSlider.value = "0";
+      scrollSpeed = 0;
+      stopScrollLoop();
+    }
+  });
+  let scrollSpeed = 0;
+  let scrollRafId: number | null = null;
+  let scrollLastTime: number | null = null;
+  let scrollAccum = 0;
+
+  function scrollLoop(now: number) {
+    if (scrollLastTime !== null) {
+      const delta = (now - scrollLastTime) / 1000;
+      scrollAccum += scrollSpeed * delta;
+      const px = Math.floor(scrollAccum);
+      if (px >= 1) {
+        window.scrollBy(0, px);
+        scrollAccum -= px;
+      }
+
+      const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 1;
+      if (atBottom) {
+        scrollSpeed = 0;
+        scrollSlider.value = "0";
+        stopScrollLoop();
+        return;
+      }
+    }
+    scrollLastTime = now;
+    scrollRafId = requestAnimationFrame(scrollLoop);
+  }
+
+  function startScrollLoop() {
+    if (scrollRafId !== null) return;
+    scrollLastTime = null;
+    scrollRafId = requestAnimationFrame(scrollLoop);
+  }
+
+  function stopScrollLoop() {
+    if (scrollRafId !== null) {
+      cancelAnimationFrame(scrollRafId);
+      scrollRafId = null;
+      scrollLastTime = null;
+    }
+  }
+
+  scrollSlider.addEventListener("input", () => {
+    const v = Number(scrollSlider.value);
+    scrollSpeed = v * 6;
+    console.log(`slider=${v} speed=${scrollSpeed} px/s`);
+    if (scrollSpeed > 0) {
+      startScrollLoop();
+    } else {
+      stopScrollLoop();
+    }
+  });
 
   // ─── Initialize ───
   makeChordsClickable();

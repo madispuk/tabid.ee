@@ -4,3 +4,6 @@ _site/
 /*.jpeg
 /*.png
 .playwright-mcp
+.env
+.env.local
+.env*.local
