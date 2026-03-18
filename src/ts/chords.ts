@@ -394,6 +394,30 @@ const CHORD_DB: Record<string, Voicing[]> = {
   'Aaug': [
     { frets: [-1,0,3,2,2,1], fingers: [0,0,4,2,3,1], pos: 0 },
   ],
+  'Baug': [
+    { frets: [-1,2,1,0,0,3], fingers: [0,2,1,0,0,4], pos: 0 },
+    { frets: [7,6,5,4,4,-1], fingers: [4,3,2,1,1,0], pos: 2, barres: [{from:3,to:4,fret:4}] },
+  ],
+  'Bbaug': [
+    { frets: [-1,1,0,3,3,2], fingers: [0,1,0,3,4,2], pos: 0 },
+    { frets: [6,5,4,3,3,-1], fingers: [4,3,2,1,1,0], pos: 1, barres: [{from:3,to:4,fret:3}] },
+  ],
+  'Ebaug': [
+    { frets: [-1,-1,1,0,0,3], fingers: [0,0,1,0,0,4], pos: 0 },
+    { frets: [-1,-1,1,4,4,3], fingers: [0,0,1,3,4,2], pos: 0 },
+  ],
+  'Abaug': [
+    { frets: [4,3,2,1,1,0], fingers: [4,3,2,1,1,0], pos: 0, barres: [{from:3,to:4,fret:1}] },
+    { frets: [-1,-1,-1,1,1,0], fingers: [0,0,0,1,2,0], pos: 0 },
+  ],
+  'Dbaug': [
+    { frets: [-1,4,3,2,2,-1], fingers: [0,4,3,1,1,0], pos: 0, barres: [{from:3,to:4,fret:2}] },
+    { frets: [9,8,7,6,6,-1], fingers: [4,3,2,1,1,0], pos: 4, barres: [{from:3,to:4,fret:6}] },
+  ],
+  'F#aug': [
+    { frets: [2,1,0,3,3,-1], fingers: [2,1,0,3,4,0], pos: 0 },
+    { frets: [-1,-1,4,3,3,2], fingers: [0,0,4,2,3,1], pos: 0 },
+  ],
 
   // ─── add9 ───
   'Cadd9': [
@@ -413,6 +437,30 @@ const CHORD_DB: Record<string, Voicing[]> = {
   ],
   'Fadd9': [
     { frets: [1,0,3,2,1,0], fingers: [1,0,4,3,2,0], pos: 0 },
+  ],
+  'Badd9': [
+    { frets: [-1,2,1,4,2,-1], fingers: [0,2,1,4,3,0], pos: 0 },
+    { frets: [-1,-1,9,8,7,9], fingers: [0,0,3,2,1,4], pos: 5 },
+  ],
+  'Bbadd9': [
+    { frets: [-1,1,0,3,1,1], fingers: [0,1,0,3,1,1], pos: 0, barres: [{from:4,to:5,fret:1}] },
+    { frets: [-1,-1,8,7,6,8], fingers: [0,0,3,2,1,4], pos: 4 },
+  ],
+  'Ebadd9': [
+    { frets: [-1,6,5,3,6,3], fingers: [0,3,2,1,4,1], pos: 1, barres: [{from:3,to:5,fret:3}] },
+    { frets: [-1,-1,1,0,2,1], fingers: [0,0,2,0,4,1], pos: 0 },
+  ],
+  'Abadd9': [
+    { frets: [4,3,1,3,1,-1], fingers: [3,2,1,4,1,0], pos: 0, barres: [{from:2,to:4,fret:1}] },
+    { frets: [-1,-1,6,5,4,6], fingers: [0,0,3,2,1,4], pos: 2 },
+  ],
+  'Dbadd9': [
+    { frets: [-1,4,3,1,4,1], fingers: [0,3,2,1,4,1], pos: 0, barres: [{from:3,to:5,fret:1}] },
+    { frets: [-1,-1,11,10,9,11], fingers: [0,0,3,2,1,4], pos: 7 },
+  ],
+  'F#add9': [
+    { frets: [-1,-1,4,3,2,4], fingers: [0,0,3,2,1,4], pos: 0 },
+    { frets: [2,1,4,1,2,-1], fingers: [2,1,4,1,3,0], pos: 0 },
   ],
 
   // ─── maj7 ───
@@ -437,6 +485,26 @@ const CHORD_DB: Record<string, Voicing[]> = {
   ],
   'Bmaj7': [
     { frets: [-1,2,4,3,4,2], fingers: [0,1,3,2,4,1], pos: 0, barres: [{from:1,to:5,fret:2}] },
+  ],
+  'Bbmaj7': [
+    { frets: [-1,1,3,2,3,1], fingers: [0,1,3,2,4,1], pos: 0, barres: [{from:1,to:5,fret:1}] },
+    { frets: [6,8,7,7,6,6], fingers: [1,4,2,3,1,1], pos: 4, barres: [{from:0,to:5,fret:6}] },
+  ],
+  'Ebmaj7': [
+    { frets: [-1,-1,1,3,3,3], fingers: [0,0,1,3,3,3], pos: 0, barres: [{from:3,to:5,fret:3}] },
+    { frets: [-1,6,8,7,8,6], fingers: [0,1,3,2,4,1], pos: 4, barres: [{from:1,to:5,fret:6}] },
+  ],
+  'Abmaj7': [
+    { frets: [4,6,5,5,4,4], fingers: [1,4,2,3,1,1], pos: 2, barres: [{from:0,to:5,fret:4}] },
+    { frets: [-1,-1,6,5,4,3], fingers: [0,0,4,3,2,1], pos: 1 },
+  ],
+  'Dbmaj7': [
+    { frets: [-1,4,3,1,1,1], fingers: [0,4,3,1,1,1], pos: 0, barres: [{from:3,to:5,fret:1}] },
+    { frets: [-1,4,6,5,6,4], fingers: [0,1,3,2,4,1], pos: 2, barres: [{from:1,to:5,fret:4}] },
+  ],
+  'F#maj7': [
+    { frets: [2,4,3,3,2,2], fingers: [1,4,2,3,1,1], pos: 0, barres: [{from:0,to:5,fret:2}] },
+    { frets: [-1,9,11,10,11,9], fingers: [0,1,3,2,4,1], pos: 7, barres: [{from:1,to:5,fret:9}] },
   ],
 
   // ─── Minor 7th flat/sharp ───
@@ -487,6 +555,22 @@ const CHORD_DB: Record<string, Voicing[]> = {
   'Eb6': [
     { frets: [-1,-1,1,3,1,3], fingers: [0,0,1,3,2,4], pos: 0 },
   ],
+  'Bb6': [
+    { frets: [-1,1,3,3,3,3], fingers: [0,1,3,3,3,3], pos: 0, barres: [{from:2,to:5,fret:3}] },
+    { frets: [-1,1,3,0,3,-1], fingers: [0,1,3,0,4,0], pos: 0 },
+  ],
+  'Ab6': [
+    { frets: [-1,-1,1,1,1,1], fingers: [0,0,1,1,1,1], pos: 0, barres: [{from:2,to:5,fret:1}] },
+    { frets: [4,6,6,5,6,4], fingers: [1,3,3,2,4,1], pos: 2, barres: [{from:0,to:5,fret:4}] },
+  ],
+  'Db6': [
+    { frets: [-1,4,6,6,6,6], fingers: [0,1,3,3,3,3], pos: 2, barres: [{from:2,to:5,fret:6}] },
+    { frets: [-1,4,3,3,2,-1], fingers: [0,4,2,3,1,0], pos: 0 },
+  ],
+  'F#6': [
+    { frets: [2,4,4,3,4,2], fingers: [1,3,3,2,4,1], pos: 0, barres: [{from:0,to:5,fret:2}] },
+    { frets: [-1,9,8,8,7,-1], fingers: [0,4,2,3,1,0], pos: 5 },
+  ],
 
   // ─── 9th (dominant) ───
   'C9': [
@@ -513,6 +597,22 @@ const CHORD_DB: Record<string, Voicing[]> = {
   'Eb9': [
     { frets: [-1,-1,1,0,2,1], fingers: [0,0,1,0,3,2], pos: 0 },
   ],
+  'B9': [
+    { frets: [-1,2,1,2,2,2], fingers: [0,2,1,3,3,4], pos: 0 },
+    { frets: [7,9,7,8,7,9], fingers: [1,3,1,2,1,4], pos: 5, barres: [{from:0,to:4,fret:7}] },
+  ],
+  'Bb9': [
+    { frets: [-1,1,0,1,1,1], fingers: [0,1,0,2,3,4], pos: 0 },
+    { frets: [6,8,6,7,6,8], fingers: [1,3,1,2,1,4], pos: 4, barres: [{from:0,to:4,fret:6}] },
+  ],
+  'Ab9': [
+    { frets: [4,3,4,3,4,4], fingers: [2,1,3,1,4,4], pos: 1, barres: [{from:1,to:3,fret:3}] },
+    { frets: [4,6,4,5,4,6], fingers: [1,3,1,2,1,4], pos: 2, barres: [{from:0,to:4,fret:4}] },
+  ],
+  'Db9': [
+    { frets: [-1,4,3,4,4,-1], fingers: [0,2,1,3,4,0], pos: 1 },
+    { frets: [9,11,9,10,9,11], fingers: [1,3,1,2,1,4], pos: 7, barres: [{from:0,to:4,fret:9}] },
+  ],
 
   // ─── Minor 6th ───
   'Am6': [
@@ -532,6 +632,30 @@ const CHORD_DB: Record<string, Voicing[]> = {
   ],
   'Gm6': [
     { frets: [3,5,5,3,5,3], fingers: [1,3,4,1,4,1], pos: 1, barres: [{from:0,to:5,fret:3}] },
+  ],
+  'Bm6': [
+    { frets: [-1,2,0,1,0,2], fingers: [0,2,0,1,0,3], pos: 0 },
+    { frets: [7,9,9,7,9,7], fingers: [1,3,4,1,4,1], pos: 5, barres: [{from:0,to:5,fret:7}] },
+  ],
+  'Bbm6': [
+    { frets: [-1,1,3,0,2,1], fingers: [0,1,4,0,3,2], pos: 0 },
+    { frets: [6,8,8,6,8,6], fingers: [1,3,4,1,4,1], pos: 4, barres: [{from:0,to:5,fret:6}] },
+  ],
+  'Ebm6': [
+    { frets: [-1,-1,1,3,1,2], fingers: [0,0,1,4,1,2], pos: 0, barres: [{from:2,to:4,fret:1}] },
+    { frets: [-1,6,8,8,7,8], fingers: [0,1,3,4,2,4], pos: 4 },
+  ],
+  'Abm6': [
+    { frets: [4,6,6,4,6,4], fingers: [1,3,4,1,4,1], pos: 2, barres: [{from:0,to:5,fret:4}] },
+    { frets: [-1,-1,-1,1,0,1], fingers: [0,0,0,2,0,3], pos: 0 },
+  ],
+  'Dbm6': [
+    { frets: [-1,4,2,3,2,4], fingers: [0,3,1,2,1,4], pos: 0, barres: [{from:2,to:4,fret:2}] },
+    { frets: [9,11,11,9,11,9], fingers: [1,3,4,1,4,1], pos: 7, barres: [{from:0,to:5,fret:9}] },
+  ],
+  'F#m6': [
+    { frets: [2,4,4,2,4,2], fingers: [1,3,4,1,4,1], pos: 0, barres: [{from:0,to:5,fret:2}] },
+    { frets: [2,0,1,2,2,-1], fingers: [2,0,1,3,4,0], pos: 0 },
   ],
 
   // ─── Power Chords (5ths) ── root-5th-octave on 3 strings ───
